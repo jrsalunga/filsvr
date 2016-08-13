@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests\DateRequest;
+use App\Http\Requests;
+use App\Booking;
+use App\BookedRoomType;
+use App\RoomType;
+
+class AdminBookingController extends Controller
+{
+
+	public function index()
+	{
+		return view("admin.booking.index");
+	}
+
+
+	public function bookingDate(DateRequest $request)
+	{
+		$input = $request->all();	
+		$input['check_in'] = $input['check_in']." 14:00";
+		$input['check_out'] = $input['check_out']." 12:00";
+		return $this->checkAvailability($input);
+	}
+
+	public function checkAvailability($input = null)
+	{
+		if($input ==null) return redirect::back()->withErrors("Something went wrong, please try again.");
+		$check_in = $input['check_in'];
+		$check_out = $input['check_out'];
+		$pendingbooking = Booking::with("roomType.rooms")->
+		where(function($query1) use($check_in, $check_out)
+		{
+			$query1->whereBetween('check_in', array($check_in, $check_out))
+			->orWhereBetween('check_out', array($check_in, $check_out))
+			->orWhereRaw('"'.$check_in.'" between check_in and check_out')
+			->orWhereRaw('"'.$check_out.'" between check_in and check_out');
+		})
+		->where("status", "pending")
+		->get();
+
+		$booking_ids = Booking::where(function($query2) use($check_in, $check_out)
+		{
+			$query2->whereBetween('check_in', array($check_in, $check_out))
+			->orWhereBetween('check_out', array($check_in, $check_out))
+			->orWhereRaw('"'.$check_in.'" between check_in and check_out')
+			->orWhereRaw('"'.$check_out.'" between check_in and check_out');
+		})
+		//->where("status", "!=", "pending")
+		->select("id")->get();
+		
+		$bookings = BookedRoomType::with("rooms", "details")->whereIn("booking_id", $booking_ids)->get();		
+		$output = array();
+		$count = 0;
+		return $bookings;
+		foreach($bookings as $key=>$b)
+		{
+			$counter = false;
+			foreach($output as $key1=>$o)
+			{
+				if($key1==$b->room_type_id)
+				{
+					$counter=true;
+					$output[$key1]['quantity'] += $b->quantity;
+					if(count($b->rooms) > 0)
+						array_push($output[$key1]['rooms'],$b->rooms);
+				}
+			}
+
+			if(!$counter)
+			{
+				$output[$b->room_type_id]['quantity'] =  (int) $b->quantity;
+				$output[$b->room_type_id]['rooms'] = array();
+				//$output[$b->room_type_id]['rooms_available'] = $b->
+				if(count($b->rooms) > 0)
+					array_push($output[$b->room_type_id]['rooms'],$b->rooms);
+			}
+		}
+	}
+}

@@ -1,0 +1,631 @@
+/* media queries */
+
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {
+
+	.reservation-sidebar
+	{
+
+		margin-top:20px;
+
+	}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) { 
+	.reservation-sidebar
+	{
+		margin-top:20px;
+	}
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+	.reservation-sidebar
+	{
+
+		margin-top:20px;
+
+	}
+}
+
+.main-content #step3
+{
+	margin-top:20px;
+}
+
+.main-content #step3 label
+{
+	font-family: Open Sans;
+}
+table.pricing td, table.pricing th
+{
+	text-align:center;
+	border:2px solid rgb(168, 168, 168) !important;
+}
+.payment-option
+{
+	color:white;
+	min-height:20px;
+	padding:0px;
+	background-color:#95FF89;
+
+	-webkit-box-shadow: 0px 0px 1px 0px rgba(107,107,107,1);
+	-moz-box-shadow: 0px 0px 1px 0px rgba(107,107,107,1);
+	box-shadow: 0px 0px 1px 0px rgba(107,107,107,1);
+}
+
+.payment-option .checkbox
+{
+	font-size:15px;
+	color:rgb(225, 228, 137);
+	font-weight:bold !important;
+}
+
+.main-content #step3 .form-control
+{
+	border-radius:3px;
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
+}
+.reservation-sidebar
+{
+
+	margin-top:20px;
+
+}
+
+/* end of media queries */
+
+/* fonts */
+
+@import url(https://fonts.googleapis.com/css?family=Grand+Hotel);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* sticky footer */
+* {
+	margin: 0;
+}
+
+html, body 
+{	
+	height: 100%;
+}
+
+
+/* reservation wizard  */
+
+
+ul.nav-wizard {
+	background-color: #f1f1f1;
+	border: 1px solid #d4d4d4;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 3px;
+	position: relative;
+	overflow: hidden;
+}
+ul.nav-wizard:before {
+	position: absolute;
+}
+ul.nav-wizard:after {
+	display: block;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 138px;
+	height: 47px;
+	border-top: 1px solid #d4d4d4;
+	border-bottom: 1px solid #d4d4d4;
+	z-index: 11;
+	content: " ";
+}
+ul.nav-wizard li {
+	position: relative;
+	float: left;
+	height: 46px;
+	display: inline-block;
+	text-align: center;
+	padding: 0 20px 0 30px;
+	margin: 0;
+	font-size: 16px;
+	line-height: 46px;
+}
+ul.nav-wizard li a {
+	color: #428bca;
+	padding: 0;
+}
+ul.nav-wizard li a:hover {
+	background-color: transparent;
+}
+ul.nav-wizard li:before {
+	position: absolute;
+	display: block;
+	border: 24px solid transparent;
+	border-left: 16px solid #d4d4d4;
+	border-right: 0;
+	top: -1px;
+	z-index: 10;
+	content: '';
+	right: -16px;
+}
+ul.nav-wizard li:after {
+	position: absolute;
+	display: block;
+	border: 24px solid transparent;
+	border-left: 16px solid #f1f1f1;
+	border-right: 0;
+	top: -1px;
+	z-index: 10;
+	content: '';
+	right: -15px;
+}
+ul.nav-wizard li.active {
+	color: #3a87ad;
+	background: #dedede;
+}
+ul.nav-wizard li.active:after {
+	border-left: 16px solid #dedede;
+}
+ul.nav-wizard li.active a,
+ul.nav-wizard li.active a:active,
+ul.nav-wizard li.active a:visited,
+ul.nav-wizard li.active a:focus {
+	color: #989898;
+	background: #dedede;
+}
+ul.nav-wizard .active ~ li {
+	color: #999999;
+	background: #f9f9f9;
+}
+ul.nav-wizard .active ~ li:after {
+	border-left: 16px solid #f9f9f9;
+}
+ul.nav-wizard .active ~ li a,
+ul.nav-wizard .active ~ li a:active,
+ul.nav-wizard .active ~ li a:visited,
+ul.nav-wizard .active ~ li a:focus {
+	color: #999999;
+	background: #f9f9f9;
+}
+ul.nav-wizard.nav-wizard-backnav li:hover {
+	color: #468847;
+	background: #f6fbfd;
+}
+ul.nav-wizard.nav-wizard-backnav li:hover:after {
+	border-left: 16px solid #f6fbfd;
+}
+ul.nav-wizard.nav-wizard-backnav li:hover a,
+ul.nav-wizard.nav-wizard-backnav li:hover a:active,
+ul.nav-wizard.nav-wizard-backnav li:hover a:visited,
+ul.nav-wizard.nav-wizard-backnav li:hover a:focus {
+	color: #468847;
+	background: #f6fbfd;
+}
+ul.nav-wizard.nav-wizard-backnav .active ~ li {
+	color: #999999;
+	background: #ededed;
+}
+ul.nav-wizard.nav-wizard-backnav .active ~ li:after {
+	border-left: 16px solid #ededed;
+}
+ul.nav-wizard.nav-wizard-backnav .active ~ li a,
+ul.nav-wizard.nav-wizard-backnav .active ~ li a:active,
+ul.nav-wizard.nav-wizard-backnav .active ~ li a:visited,
+ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
+	color: #999999;
+	background: #ededed;
+}
+
+.range div {
+	display: inline-block;
+}
+
+.datepicker-inline {
+	width: 100%;
+}
+.datepicker table {
+	width: 100%;
+}
+
+.nav-side-menu .brand
+{
+	font-size:20px;
+}
+.brand
+{
+	font-size:20px;
+}
+#page-wrapper {
+	min-height: 100%;
+	/* equal to footer height */
+	margin-bottom: -30px; 
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+
+#page-wrapper:after {
+	content: "";
+	display: block;
+}
+
+.site-footer, #page-wrapper:after {
+	height: 30px; 
+}
+
+.site-footer {
+	padding:5px;
+	background: black;
+	color:white;
+	text-align: center
+}
+
+.loader
+{
+	width:100%;
+	height:100%;
+	background-color:black;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0; 
+	z-index:10000
+}
+
+.active-loader
+{
+	opacity: 0.4;
+}
+
+.loader-container
+{
+	position:absolute;
+	width:100%;
+	top:100px;
+	display:none;
+	
+}
+.txt-shadow
+{
+	text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+}
+
+.txt-shadow-white
+{
+	text-shadow: 1px 1px 2px rgba(0,0,0, 1);
+}
+
+.txt-shadow-black
+{
+	text-shadow: 1px 1px 2px rgba(255,255,255, 1);
+}
+
+
+
+
+
+.rooms .item
+{
+	margin-bottom:20px;
+}
+
+.features-container
+{
+	padding:5px;
+	
+}
+.features-container .features-content .glyphicon-ok
+{
+	color:rgb(250, 255, 68);
+	font-size:20px;
+}
+
+.features-container .features-content .glyphicon-remove
+{
+	color:rgb(207, 118, 118);
+	font-size:20px;
+}
+
+.features-container .features-content
+{
+	background:rgb(108, 195, 108);
+	border:1px solid white;
+	min-height:20px;
+	padding:10px;
+	font-size:17px;
+	font-family:Open Sans, Arial;
+	color:white;
+}
+
+.rooms .item h3
+{
+	font-style:italic;
+	color:#7E7E7E;
+	margin-top:30px;
+	font-family: Open Sans, Arial;
+	text-shadow: 1px 1px 2px rgba(255,255,255, 1);
+
+}
+
+.rooms .item h3 span
+{
+	font-style:normal !important;
+	color:rgb(46, 165, 61);
+	font-weight:bold;
+	font-family: Open Sans, Arial;
+}
+
+
+.rooms .item h4
+{
+	font-style:italic;
+	color:#7E7E7E;
+	margin-top:30px;
+	font-family: Open Sans, Arial;
+	text-shadow: 1px 1px 2px rgba(255,255,255, 1);
+
+}
+
+.room-description
+{
+	margin:20px 0 0 0;
+}
+.rooms .item h4 span
+{
+	font-style:normal !important;
+	color:rgb(46, 165, 61);
+	font-weight:bold;
+	font-family: Open Sans, Arial;
+}
+
+
+
+.rooms .item
+{
+	margin-bottom:30px;
+}
+
+.rooms .item p
+{
+	color : rgb(83, 105, 93);
+}
+
+.main-content .rooms hr
+{
+	
+	border-bottom:2px solid #C3C3C3;
+	margin:0 0 10px 0;
+}
+
+.reservation-sidebar .rooms
+{
+	background-color:#F0EEBD	;
+	min-height:20px;
+	width:100%;
+	padding:5px;
+	color:white;
+	border-bottom:2px solid white;
+	margin-bottom:0 !important;
+	text-shadow: 1px 1px 2px rgba(0,0,0, 1);
+}
+
+.reservation-sidebar .rooms h5 span
+{
+	font-size:18px;
+	font-weight:bold;
+	color:rgb(109, 255, 109);
+	margin-left:10px;
+}
+
+.reservation-sidebar .rooms h5:nth-of-type(2)
+{
+	color:rgb(181, 255, 241);
+}
+
+.main-content
+{
+	margin:20px 0 20px 0;
+}
+
+.reservation-sidebar .media
+{
+	
+}
+
+
+
+.visible-lg .features-container
+{
+	text-align:center;
+}
+.visible-lg .features-container strong
+{
+	font-size:25px;
+	color:rgb(148, 255, 141);
+
+}
+
+.main-content .media
+{
+	padding-top:20px;
+}
+
+.reservation-sidebar
+{
+	border-radius:3px;
+	min-height:100px;
+	padding:0;
+	background-color:#F9F4E5;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+}
+
+.reservation-sidebar .form-control
+{
+	border-radius:3px;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
+}
+
+.text-control
+{
+	font-family:Open Sans, Arial;
+}
+
+.reservation-sidebar label
+{
+	font-weight:500;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+	font-size:15px;
+	font-family:Open Sans, Arial;
+}
+header
+{
+	background-image:url('/image/full/header.jpg');
+	background-size:cover;
+	background-image: url("/image/full/texture3.jpg");
+}
+
+
+.header
+{
+	background-image:url('/image/full/header.jpg') !important;
+	background-size:cover !important;
+}
+
+
+
+.home-page-2
+{
+	color:white;
+	padding:50px;
+
+	background:black;
+}
+.home-page-3
+{
+	padding:50px;
+	
+}
+
+
+.home-page-4
+{
+	background-image:url('/image/full/header.jpg');
+	background-size:cover;
+	padding:50px;
+	color:white;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+}
+
+
+.home-page-2 h2
+{
+	font-family:Open Sans, Arial;
+	margin-bottom:0
+	text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+}
+.home-reservation
+{
+	min-height:60px;
+	padding:10px;
+	border-top:5px solid white;
+	border-bottom:2px solid bottom;
+	background-image:url('/image/full/texture4.jpg');
+}
+
+.home-reservation h4{
+	color:white;
+	text-align:right;
+}
+
+.home-page-2 .rooms{
+	padding-top:50px;
+}
+
+.home-page-2 .rooms p
+{
+	font-family: Open Sans, Arial;
+	font-size:16px
+}
+.home-reservation input, .home-reservation select
+{
+	border-radius:2px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.top-shadow
+{
+	-webkit-box-shadow: 0px -1px 3px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px -1px 3px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px -1px 3px 0px rgba(0,0,0,0.75);
+}
+
+.container.slider{
+	margin-top:30px;
+	min-height:100px;
+	padding:5px 5px 0 5px;
+	background:white;
+}
+
+.main-container .content
+{
+	border-radius:3px;
+	background-color:white;
+	min-height:100px;
+}
+
+/* slider style */
+
+/* jssor slider bullet navigator skin 05 css */
+                /*
+                .jssorb05 div           (normal)
+                .jssorb05 div:hover     (normal mouseover)
+                .jssorb05 .av           (active)
+                .jssorb05 .av:hover     (active mouseover)
+                .jssorb05 .dn           (mousedown)
+                */
+                .jssorb05 {
+                	position: absolute;
+                }
+                .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+                	position: absolute;
+                	/* size of bullet elment */
+                	width: 16px;
+                	height: 16px;
+                	background: url(/asset/images/b05.png) no-repeat;
+                	overflow: hidden;
+                	cursor: pointer;
+                }
+                .map {
+                	width: 99%;
+                	height: 0;
+                	margin: 0 auto;
+                	padding-top: 33.33%;
+                	position: relative;
+                }
+                .map iframe {
+                	width: 100%;
+                	height: 100%; /* had to specify height/width */
+                	position: absolute;
+                	top: 0; 
+                	right: 0;
+                	left: 0; 
+                	bottom: 0;   
+                }
+
+                .jssorb05 div { background-position: -7px -7px; }
+                .jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
+                .jssorb05 .av { background-position: -67px -7px; }
+                .jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+
