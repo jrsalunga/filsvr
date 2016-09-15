@@ -51,7 +51,7 @@
 				<div class="row" style='background: url("/asset/images/texture4.jpg");min-height:30px'>
 					<div class="container">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='padding:0px'>
-							<a  href=' booking' class="btn btn-xs btn-success pull-right" style='margin:5px;margin-left:10px'>RESERVE ROOM</a>
+							<a  href='/booking' class="btn btn-xs btn-success pull-right" style='margin:5px;margin-left:10px'>RESERVE ROOM</a>
 							<span style='color:white;font-size:20px;font-family:Open Sans' class='pull-right'>Call us at {{ $website_telephone_number }} for inquiry</span>
 						</div>
 					</div>

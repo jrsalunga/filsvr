@@ -124,7 +124,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 			bookingFactory.storeBooking($scope.booking_details, $scope.customer).success(function(a,b,c)
 			{
 				$("#loader-container").fadeOut(300);
-				$scope.changeDate(true);
+				//$scope.changeDate(true);
 				console.log('payment');
 				console.log(a);
 				console.log(b);
@@ -132,7 +132,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 				$("#modal-check-out").modal("hide");
 				var url = "/booking/"+a.id+"/payment";
 				//window.location.href = url;
-				//window.location.replace(url);
+				window.location.replace(url);
 				console.log(url);
 			}).error(function()
 			{
