@@ -18,40 +18,9 @@ use App\BookedRoom;
 use App\BookedRoomType;
 use App\Helpers\BookingIdGenerator;
 use Illuminate\Support\Facades\Route;
-use \Carbon;
-use \Calendar;
-use \PDF;
 
 
-Route::get("test", function()
-{
-	$var1 = (1<<0);
-	$var2 = (1<<2);
-	$var3 = (1<<3);
-	$var4 = (1<<4);
-	$var5 = (1<<5);
 
-	$test1 = ($var1|$var2);
-	$test2 = ($var1|$var2|$var3);
-	$test3 = ($var2|$var3|$var4);
-	$test4 = ($var1|$var4|$var5);
-	if($test1 & $test2)
-	{
-		echo "they have intersected <br>
-		<b> $test1 $test2</b>";
-	}
-
-	if($test1 & $test4)
-	{
-		echo "They are completely the same <br>";
-	}
-
-	if(5 & 14)
-	{
-		echo "yes! <br>";
-	}
-
-});
 Route::get("redirect", function()
 {
 	if(Auth::guest())
@@ -77,6 +46,29 @@ Route::get("redirect", function()
 	}
 });
 
+Route::get("test", function()
+{
+
+	$email_data = array();
+	$email_data['name'] = "Tan";
+	$email_data['reference_number'] = "234243";
+					//return $email_data;
+	Mail::send('frontend.booking.email', $email_data, function ($message) {
+		$message->from('test@filigans.com', 'Admin Filigans');
+		$message->to('tan_0300@yahoo.com');
+		$message->subject("Filigans Hotel Reservation");
+	});
+
+
+});
+
+Route::get("test1", function(){
+	$booking = \App\Booking::all();
+	foreach($booking as $key=>$b){
+		$b->booking_type ="online";
+		$b->save();
+	}
+});
 /*end of test routes*/
 
 /*front end routes*/
@@ -86,6 +78,23 @@ Route::resource("promos","FrontendPromoController");
 Route::resource("gallery", "FrontendGalleryController");
 Route::get("about", "FrontendController@about");
 Route::get("contact", "FrontendController@contact");
+Route::post("booking/date", "FrontendBookingController@bookingDate");
+Route::get("booking/details", "FrontendBookingController@bookingDetails");
+Route::get("booking/details/reset", "FrontendBookingController@bookingReset");
+Route::post("booking/temprooms", "FrontendBookingController@tempRooms");
+Route::post("booking/addrooms", "FrontendBookingController@addBookedRoom");
+Route::get("booking/details/removeroom", "FrontendBookingController@bookingRemoveRoom");
+Route::get("booking/{id}/invoice", "AdminBookingController@viewInvoice");
+Route::get("booking/{booking_no}/registration", "FrontendBookingController@viewRegistration");
+Route::get("booking/{id}/payment", "FrontendBookingController@viewPayment");
+Route::post("booking/{id}/payment", "FrontendBookingController@postPayment");
+Route::get("booking/success", "FrontendBookingController@callbackSuccess");
+Route::get("booking/fail", "FrontendBookingController@callbackFail");
+Route::get("booking/cancel", "FrontendBookingController@callbackCancel");
+Route::resource("booking", "FrontendBookingController");
+
+
+
 /*end of front end routes*/
 
 /*admin routes*/
@@ -97,6 +106,7 @@ Route::group(array('prefix'=>'housekeeping'), function()
 	Route::get("/", "HouseKeepingController@index");
 	Route::get("rooms", "HouseKeepingController@index");
 });
+
 
 Route::group(array('prefix'=>'admin', 'middleware'=>'adminauth'), function()
 {
@@ -116,6 +126,7 @@ Route::group(array('prefix'=>'admin', 'middleware'=>'adminauth'), function()
 	Route::get("booking/details/reset", "AdminBookingController@bookingReset");
 	Route::get("booking/details/removeroom", "AdminBookingController@bookingRemoveRoom");
 	Route::get("customers/search", "AdminCustomerController@searchCustomer");
+	Route::get("booking/{booking_no}/registration", "AdminBookingController@viewRegistration");
 	Route::get("booking/{id}/invoice", "AdminBookingController@viewInvoice");
 	/*patch request*/
 	Route::patch("users/myprofile/account", "AdminUserController@updateMyProfile");

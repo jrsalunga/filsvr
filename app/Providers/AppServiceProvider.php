@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $websitesettings = \App\WebsiteSetting::first();
+    $contact_number = "N/A";
+    if($websitesettings)
+        $contact_number = ($websitesettings->telephone_no !="") ? $websitesettings->telephone_no : "N/A";
+    view()->share('website_telephone_number', $contact_number);
     }
 
     /**

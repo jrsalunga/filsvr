@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="" ng-app="filigansApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Title Page</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/asset/frontend/css/style.css">
+	<link rel="stylesheet" type="text/css" href="
+	https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css">
+</head>
+<body ng-controller="@yield('controller', 'mainController')">
+	<div id='page-wrapper' class='container-fluid'>
+				<div class="row"><!--
+							<div style='min-height:30px;background:red'>
+									<span class="text-center">Something went wrong..</span>
+								</div> -->
+								<header class='header'>
+									<div class="container-fluid">
+										<div class="row" style='background: url(http://localhost:8787/images/background/texture4.jpg);min-height:30px'>
+											<div class="container">
+												<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='padding:0px'>
+													<a  href='http://localhost:8787/booking' class="btn btn-xs btn-success pull-right" style='margin:5px;margin-left:10px'>RESERVE ROOM</a>
+													<span style='color:white;font-size:20px;font-family:Open Sans' class='pull-right'>Call us at 8700 for inquiry</span>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="navbar navbar-default hidden-xs hidden-sm" role="navigation">
+												<div class="container">
+													<div style='height:100px;width:300px;background:url(http://localhost:8787/images/background/texture2.jpg) black;position:absolute;top:-33px;padding:15px;padding-top:0px;-webkit-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
+													-moz-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
+													box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);'>
+													<a href='http://localhost:8787'><img src="http://www.giligansrestaurant.com/site/images/gililogo.png"></a>
+												</div>
+												<!-- Brand and toggle get grouped for better mobile display -->
+												<ul class="nav navbar-nav navbar-right">
+													<li><a href="http://localhost:8787">Home</a></li>
+													<li><a href="http://localhost:8787/room">Rooms</a></li>
+													<li><a href="http://localhost:8787/gallery">Gallery</a></li>
+													<li><a href="http://localhost:8787/services">Services</a></li>
+													<li><a href="http://localhost:8787/about">About</a></li>
+													<li><a href="http://localhost:8787/contact">Contact</a></li>
+												</ul>
+											</div><!-- /.navbar-collapse -->
+										</div>
+									</div>
+									<nav class="navbar navbar-default visible-xs visible-sm" role="navigation">
+										<!-- Brand and toggle get grouped for better mobile display -->
+										<div style='height:100px;width:100%;background:url(http://localhost:8787/images/background/texture2.png) black;padding-left:20px;padding-top:0px;-webkit-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
+										-moz-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
+										box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);'>
+										<a href='http://localhost:8787'><img class='img-responsive' src="http://www.giligansrestaurant.com/site/images/gililogo.png"></a>
+									</div>
+									<div class="navbar-header">
+										<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+											<span class="sr-only">Toggle navigation</span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<a class="navbar-brand" href="#">Giligans Hotel</a>
+									</div>
+									<div class="collapse navbar-collapse navbar-ex1-collapse">
+										<ul class="nav navbar-nav navbar-right">
+											<li><a href="#">Home</a></li>
+											<li><a href="#">Rooms</a></li>
+											<li><a href="#">Features and Services</a></li>
+											<li><a href="#">About</a></li>
+											<li><a href="#">Contact</a></li>
+										</ul>
+									</div>
+								</nav>
+							</div>
+							<!-- slider -->
+							<h1 class='text-center txt-shadow-white' style='margin:0;padding:50px;color:white;font-family:Open Sans, Arial'> RESERVATION </h1>
+						</header>
+					</div>
+					<div class="row main-content">
+						<div class="container">
+							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 rooms">
+								<section>
+									<div class="wizard">
+										<ul class="nav nav-wizard">
+											<li class="active">
+												<a href="#step1" data-toggle="tab">1. Choose Date</a>
+											</li>
+											<li>
+												<a href="#step2" data-toggle="tab">2. Choose Room</a>
+											</li>
+											<li class="disabled">
+												<a href="#step3" data-toggle="tab">3. Make a Reservation</a>
+											</li>
+											<li class="disabled" style=''>
+												<a href="#step4" data-toggle="tab">Confirmation</a>
+											</li>
+										</ul>
+										<form>
+											<div class="tab-content" >
+												<div class='loader-container'>
+													<center>
+														<img src="img/loader.gif">
+													</center>
+												</div>
+												<div class='loader-mask'>
+													<!--  -->
+												</div>
+												<div class="tab-pane active" id="step1">
+													<div class="range">
+														<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+															<h4 class='txt-shadow-black' style='color:rgb(112, 186, 112)'>
+																Check-in date
+															</h4>
+															<div class=" range-start"></div>
+														</div>
+														
+														<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+															<h4 class='txt-shadow-black' style='color:rgb(112, 186, 112)'>
+																Check-out date
+															</h4>
+															<div class=" range-end"></div>
+														</div>
+													</div>
+													<p>
+														<ul class="list-inline pull-right" style='margin:20px 20px 0 0'>
+															<li><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Continue</button></li>
+														</ul>
+													</div>
+													<div class="tab-pane" id="step2">
+														<div class="well">
+															<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+
+																<div class="form-group">
+																	<h4>Number of adults</h5>
+																		<input type="text" class="form-control" id="" placeholder="Input field">
+																	</div>
+
+																</div>
+																<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+																	<div class="form-group">
+																		<h4>Number of adults</h5>
+																			<input type="text" class="form-control" id="" placeholder="Input field">
+																		</div>
+																	</div>
+																	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+																		<div class="form-group">
+																			<button type="button" class="btn btn-md btn-block btn-primary"><span class="glyphicon glyphicon-glyphicon glyphicon-filter" aria-hidden="true"></span>Filter</button>
+																		</div>
+																	</div>
+																	<div class="clearfix">
+
+																	</div>
+																</div>
+																<!-- for mobile viewing -->
+																<div class="media ">
+																	<a class="pull-left" href="#" style='width:50%'>
+																		<img src="hotelrooms/column2.jpg" class='img-thumbnail img-responsive' style='width:100%'>
+																	</a>
+																	<div class="media-body">
+																		<a href="javascript:void(0)"><h2  class='pull-left'  style='margin:0; padding:0'>Deluxe Room</h2>
+																		</a>
+																		<div class="clearfix">
+																		</div>
+																		<hr>
+																		<p>
+																			<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> <strong>Bed</strong> 2 bed rooms
+																		</p>
+																		<p>
+																			<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> <strong>Max</strong> 4 People
+																		</p>
+																		<p>
+																			<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> <strong> Room Size </strong> 70 sqm
+																		</p>
+																		<p>
+																			<div class="clearfix">
+																			</div>
+																			<div class='room-description'>
+																				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ...
+																			</div>
+																			<div class='rooms'>
+																				<div class="item" style='margin:0'>
+																					<h3 style='margin:10px'>Start From <span>P100.00 /night</span></h3>
+																				</div>
+																			</div>
+
+																		</div>
+																		<button type="button" class="btn btn-lg btn-block btn-primary" style='margin-top:10px'><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Select this room</button>
+																	</div>
+																	<div class="media ">
+																		<a class="pull-left" href="#" style='width:50%'>
+																			<img src="hotelrooms/column2.jpg" class='img-thumbnail img-responsive' style='width:100%'>
+																		</a>
+																		<div class="media-body">
+																			<a href="javascript:void(0)"><h2  class='pull-left'  style='margin:0; padding:0'>Deluxe Room</h2>
+																			</a>
+																			<div class="clearfix">
+																			</div>
+																			<hr>
+																			<p>
+																				<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> <strong>Bed</strong> 2 bed rooms
+																			</p>
+																			<p>
+																				<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> <strong>Max</strong> 4 People
+																			</p>
+																			<p>
+																				<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> <strong> Room Size </strong> 70 sqm
+																			</p>
+																			<p>
+																				<div class="clearfix">
+																				</div>
+																				<div class='room-description'>
+																					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ...
+																				</div>
+																				<div class='rooms'>
+																					<div class="item" style='margin:0'>
+																						<h3 style='margin:10px'>Start From <span>P100.00 /night</span></h3>
+																					</div>
+																				</div>
+																			</div>
+																			<button type="button" class="btn btn-lg btn-block btn-primary" style='margin-top:10px'><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Select this room</button>
+																		</div>
+																		<!-- end of mobile view -->
+																<!--
+																													<div class="rooms visible-md visible-lg" style='margin:10px 0 0 0'>
+																															<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 item">
+																																	<img src="hotelrooms/column2.jpg" class='img-thumbnail img-responsive' style='width:100%'>
+																																	<a href="javascript:void(0)"><h2  class='pull-left'>Deluxe Room</h2>
+																																			<h4 class='pull-right'>Start From <span>P100.00 /night</span></h4></a>
+																																			<div class="clearfix">
+																																			</div>
+																																			<hr>
+																																				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 features-container	">
+																																					<div class="features-content txt-shadow-white">
+																																							<span style='float:right' class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+																																							No. of Bed: 3
+																																					</div>
+																																			</div>
+																																				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 features-container	">
+																																					<div class="features-content txt-shadow-white">
+																																							<span style='float:right' class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+																																							Room Area:  3
+																																					</div>
+																																			</div>
+																																				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 features-container	">
+																																					<div class="features-content txt-shadow-white">
+																																							<span style='float:right' class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+																																							Max of 4 people
+																																					</div>
+																																			</div>
+																																			<div class="clearfix">
+																																			</div>
+																																			<div class='room-description'>
+																																					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+																																			</div>
+																																			<button type="button" class="btn btn-lg btn-block btn-primary" style='margin-top:10px'><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Select this room</button>
+																																	</div>
+																																</div> -->
+																															</div>
+																															<div class="tab-pane" id="step3">
+																																<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+																																	<div class="form-group">
+																																		<label for="">Firstname</label>
+																																		<input type="text" class="form-control" id="" placeholder="Input field">
+																																	</div>
+																																	<div class="form-group">
+																																		<label for="">Email* <small style='display:inline-block;color:#676767'>
+																																			For existing customer please use your old email address
+																																		</small></label>
+																																		<input type="text" class="form-control" id="" placeholder="Input field">
+																																	</div>
+																																	<div class="form-group">
+																																		<label for="">Address <small style='display:inline-block;color:#676767'>
+																																		</small></label>
+																																		<textarea class='form-control'></textarea>
+																																	</div>
+																																</div>
+																																<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+																																	<div class="form-group">
+																																		<label for="">Lastname* <small style='display:inline-block;color:#676767'>
+																																		</small></label>
+																																		<input type="text" class="form-control" id="" placeholder="Input field">
+																																	</div>
+																																	<div class="form-group">
+																																		<label for="">Phone Number* <small style='display:inline-block;color:#676767'>
+																																		</small></label>
+																																		<input type="text" class="form-control" id="" placeholder="Input field">
+																																	</div>
+																																	<div class="form-group">
+																																		<label style="margin-bottom:7px;" for="">Flight Details <small style='display:block;color:#676767'>
+																																			Not required
+																																		</small></label>
+																																		<textarea class='form-control'></textarea>
+																																	</div>
+																																</div>
+																																<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+																																	<div class="form-group">
+																																		<h4 class="text-center">
+																																			<label for="">Additional Note <small style='display:block;color:#676767'>
+																																				Additional details for your reservation
+																																			</small></label>
+																																		</h4>
+																																		<textarea class='form-control'></textarea>
+																																	</div>
+																																</div>
+																																<div class="clearfix">
+																																</div>
+																																<div class="clearfix">
+																																</div>
+																																<ul class="list-inline pull-right" style='margin-top:20px'>
+																																	<li><button type="button" class="btn btn-primary">Continue</button></li>
+																																</ul>
+																															</div>
+																															<div class="tab-pane" id="step4">
+																																<h3>Complete</h3>
+																																<p>You have successfully completed all steps.</p>
+																															</div>
+																															<div class="clearfix"></div>
+																														</div>
+																													</form>
+																												</div>
+																											</section>
+																										</div>
+																										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 reservation-sidebar ">
+																											<h3 class="text-center" style='color:#D8D25F;border-bottom:2px solid #E7E39E;padding-bottom:5px;margin-bottom:0'>YOUR RESERVATION</h3>
+																											<h4 class="text-center text-control pick-date-text"> Please pick a date first.</h4>
+																											<!-- <div style="padding:10px">
+																												<div class="container-fluid">
+<h4>Please select a date first.</h4>
+																													<div class="row">
+
+																													<!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+																														<h5 class="date heading">Check In Date </h5>
+																														<h4 class="date content">2010-05-06</h4>
+																													</div>
+
+																													<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+																														<h5 class="date heading">Check Out Date </h5>
+																														<h4 class="date content">2010-05-06</h4>
+																													</div>
+																												</div>
+
+																											</div>
+																											<button type="button" class="btn btn-md btn-block btn-warning"><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Change Date</button>
+
+																										</div>
+																										<div class='rooms' style=' '>
+																											<h5>Room #1 <span>Deluxe Room</span> </h5>
+																											<h5> 1 Adult 1 Children</h5>
+																											<button type="button" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-glyphicon glyphicon-trash" aria-hidden="true"></span> Delete Room</button>
+																										</div>
+																										<div class='rooms' style=''>
+																											<h5>Room #1 </h5>
+																										</div>
+																										<div style='padding:10px'>
+
+																										</div> -->
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																						<footer class="site-footer">
+																							Filigans hotel 2016
+																						</footer>
+																						<!-- jQuery -->
+																						<script src="//code.jquery.com/jquery.js"></script>
+																						<!-- Bootstrap JavaScript -->
+																						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+																						<script src="/asset/frontend/js/jssor.slider.mini.js"></script>
+																						<script type="text/javascript" src='/asset/frontend/js/slider.js'></script>
+																						<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js'></script>
+																						<script type="text/javascript" src='/asset/frontend/js/main.js'></script>
+																					</body>
+																					</html>

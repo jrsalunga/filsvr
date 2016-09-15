@@ -64,9 +64,9 @@ class AdminController extends Controller
 			{
 				if($booking->booking_status == "completed")
 					$checking_out++;
-				else if($booking->booking_status=="cancelled")
+				else if(strtolower($booking->booking_status)=="cancelled")
 					$cancelled_booking++;
-				else if($booking->booking_status=="pending")
+				else if(strtolower($booking->booking_status)=="pending")
 					$pending_booking++;
 				
 				if($today->gt($check_out))

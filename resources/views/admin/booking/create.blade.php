@@ -71,12 +71,14 @@ https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-
 			<table class="table">
 				<tr>
 					<td>
-						Payment Options
+						Payment Method
 					</td>
 					<td>
-						<select ng-model="booking_details.payment_option"  class="form-control" required="required">
-							<option value="full_payment">Full / Cash</option>
-							<option value="partial_payment"> Partial Payment (10%)</option>
+						<select ng-model="booking_details.payment_mode"  class="form-control" required="required">
+							<option value="Cash">Cash</option>
+							<option value="Credit Card">Credit Card</option>
+							<option value="Pre Paid">Pre-Paid</option>
+							<option value="Voucher">Voucher</option>
 						</select>
 					</td>
 				</tr>

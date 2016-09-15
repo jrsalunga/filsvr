@@ -29,8 +29,8 @@
 				<div class="row" style='background: url("/image/full/texture4.jpg");min-height:30px'>
 					<div class="container">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='padding:0px'>
-							<a  href='http://localhost:8787/booking' class="btn btn-xs btn-success pull-right" style='margin:5px;margin-left:10px'>RESERVE ROOM</a>
-							<span style='color:white;font-size:20px;font-family:Open Sans' class='pull-right'>Call us at 8700 for inquiry</span>
+							<a  href='{{ url("/booking") }}' class="btn btn-xs btn-success pull-right" style='margin:5px;margin-left:10px'>RESERVE ROOM</a>
+							<span style='color:white;font-size:20px;font-family:Open Sans' class='pull-right'>Call us at {{ $website_telephone_number }} for inquiry</span>
 						</div>
 					</div>
 				</div>
@@ -38,29 +38,29 @@
 				<div class="row">
 					<div class="navbar navbar-default hidden-xs hidden-sm" role="navigation">
 						<div class="container">
-							<div style='height:100px;width:300px;background:url(http://localhost:8787/images/background/texture2.jpg) black;position:absolute;top:-33px;padding:15px;padding-top:0px;-webkit-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
+							<div style='height:100px;width:300px;background:url(/asset/images/texture2.jpg) black;position:absolute;top:-33px;padding:15px;padding-top:0px;-webkit-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
 							-moz-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
 							box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);'>
-							<a href='http://localhost:8787'><img src="http://www.giligansrestaurant.com/site/images/gililogo.png"></a>
+							<a href='{{ url("/") }}'><img src="/asset/images/filigans.png"></a>
 						</div>
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="http://localhost:8787">Home</a></li>
-							<li><a href="http://localhost:8888/rooms">Rooms</a></li>
-							<li><a href="http://localhost:8888/gallery">Gallery</a></li>
-							<li><a href="http://localhost:8888/promos">Promos</a></li>
-							<li><a href="http://localhost:8888/about">About</a></li>
-							<li><a href="http://localhost:8888/contact">Contact</a></li>
+							<li class="active"><a href="{{ url('/') }}">Home</a></li>
+							<li><a href="{{ url('/rooms') }}">Rooms</a></li>
+							<li><a href="{{ url('/gallery') }}">Gallery</a></li>
+		
+							<li><a href="{{ url('/about') }}">About</a></li>
+							<li><a href="{{ url('/contact') }}">Contact</a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div>
 			</div>
 			<nav class="navbar navbar-default visible-xs visible-sm" role="navigation">
 				<!-- Brand and toggle get grouped for better mobile display -->
-				<div style='height:100px;width:100%;background:url(http://localhost:8787/images/background/texture2.png) black;padding-left:20px;padding-top:0px;-webkit-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
+				<div style='height:100px;width:100%;background:url('/asset/images/texture2.png') black;padding-left:20px;padding-top:0px;-webkit-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
 				-moz-box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);
 				box-shadow: 0px 3px 18px -1px rgba(0,0,0,0.75);'>
-				<a href='http://localhost:8787'><img class='img-responsive' src="http://www.giligansrestaurant.com/site/images/gililogo.png"></a>
+				<a href='{{ url("/") }}'><img class='img-responsive' src="/asset/images/filigans.png"></a>
 			</div>
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -69,15 +69,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Giligans Hotel</a>
+				
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Home</a></li>
-					<li><a href="#">Rooms</a></li>
-					<li><a href="#">Features and Services</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Contact</a></li>
+					<li class="active"><a href="{{ url('/') }}">Home</a></li>
+							<li><a href="{{ url('/rooms') }}">Rooms</a></li>
+							<li><a href="{{ url('/gallery') }}">Gallery</a></li>
+		
+							<li><a href="{{ url('/about') }}">About</a></li>
+							<li><a href="{{ url('/contact') }}">Contact</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -103,16 +104,16 @@
 		<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1140px; height: 442px;
 		overflow: hidden;">
 		<div>
-			<img u="image" src2="/image/full/slider01.jpg" />
+			<img u="image" src2="/image/full/slider01.JPG" />
 		</div>
 		<div>
-			<img u="image" src2="/image/full/slider02.jpg" />
+			<img u="image" src2="/image/full/slider02.JPG" />
 		</div>
 		<div>
-			<img u="image" src2="/image/full/slider03.jpg" />
+			<img u="image" src2="/image/full/slider03.JPG" />
 		</div>
 		<div>
-			<img u="image" src2="/image/full/slider04.jpg" />
+			<img u="image" src2="/image/full/slider04.JPG" />
 		</div>
 	</div>
 	<!-- bullet navigator container -->
@@ -127,100 +128,78 @@
 </div>
 
 <div class="row home-reservation">
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-		<h4>Make Reservation</h4>
-	</div>
+	<form method="GET" action="/booking">
 
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-		<input type='text' class='form-control datepicker' placeholder='Select check-in date'>
-	</div>
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+			<h4>Make Reservation</h4>
+		</div>
 
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-		<input type='text' class='form-control datepicker' placeholder='Select check-out date'>
-	</div>
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+			<input name="check_in" type='text' class='form-control datepicker' placeholder='Select check-in date'>
+		</div>
 
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-		<select name="" id="input" class="form-control" required="required">
-			<option value="">No. of Adults</option>
-		</select>
-	</div>
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+			<input name="check_out" type='text' class='form-control datepicker' placeholder='Select check-out date'>
+		</div>
 
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-		<select name="" id="input" class="form-control" required="required">
-			<option value="">No. of Children</option>
-		</select>
-	</div>
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+			<select name="adult" id="input" class="form-control" required="required">
+				<option value="0">No. of Adults</option>
+				@for($i = 1; $i <=9; $i++)
+				<option value="{{ $i }}"> {{ $i }}</option>
+				@endfor
+			</select>
+		</div>
 
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-		<button type="button" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-calendar" aria-hidden="true" style='color:rgb(210, 219, 149)'></span> Check Availability</button>
-	</div>
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+			<select name="children" id="input" class="form-control" required="required">
+				<option value="0">No. of Children</option>
+				@for($i = 1; $i <=9; $i++)
+				<option value="{{ $i }}"> {{ $i }}</option>
+				@endfor
+			</select>
+		</div>
 
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+			<button type="submit" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-calendar" aria-hidden="true" style='color:rgb(210, 219, 149)'></span> Check Availability</button>
+		</div>
+	</form>
 </div>
 
 <div class="row home-page-2">
 	<h2 class='text-center'>HOTEL ROOMS</h2>
 	<h3 class='text-center' > <small>
-		<span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"> </span>View all rooms</small> </h3>
-
+		<a href="/rooms"> <span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"> </span>View all rooms</small> </a></h3>
+		@foreach($roomtype as $rt)
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 rooms">
 			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-				<img src='/image/full/sample1.jpg' class='img-thumbnail img-responsive'>
+				<img src='/image/full/{{ $rt->picture }}' class='img-thumbnail img-responsive'>
 
 
 			</div>
 			<div class="visible-md visible-lg col-md-4 col-lg-4">
 				<p>
 				</p>
+					<h3> {{ $rt->name }} </h3>
 				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> 2 Bed Rooms
+					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> {{ $rt->beds }} Bed Room(s)
 				</p>
 				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> Maximum of 4 people
+					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> Maximum of {{ $rt->capacity }} people
 				</p>
 				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> 2 Bed Rooms
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> Breakfast Included
+					{{ $rt->short_description }}
 				</p>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='margin-top:10px;'>
-				<button type="button" style='font-weight:bold' class="btn btn-lg btn-block btn-primary"><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Check room details</button>
+				<a href="/rooms/{{ $rt->slug }}" style='font-weight:bold' class="btn btn-lg btn-block btn-primary"><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Check room details</a>
 			</div>
 		</div>
 
-
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 rooms">
-			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-				<img src='/image/full/sample1.jpg' class='img-thumbnail img-responsive'>
-
-
-			</div>
-			<div class="visible-md visible-lg col-md-4 col-lg-4">
-				<p>
-
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> 2 Bed Rooms
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> Maximum of 4 people
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> 2 Bed Rooms
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> Breakfast Included
-				</p>
-			</div>
-
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='margin-top:10px;'>
-				<button type="button" style='font-weight:bold' class="btn btn-lg btn-block btn-primary"><span class="glyphicon glyphicon-glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Check room details</button>
-			</div>
-		</div>
-
+		@endforeach
+		
 	</div>
-
+	<!--
 	<div class="row home-page-3">
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -272,9 +251,10 @@
 		</div>
 
 	</div>
+	-->
 </div>
 <footer class="site-footer">
-	Filigans hotel 2016
+	Filigans Hotel 2016
 </footer>
 
 <!-- jQuery -->
@@ -287,9 +267,20 @@
 <script type="text/javascript">
 	
 	$('.datepicker').datepicker({
-		format: 'mm/dd/yyyy',
-		startDate: '-3d'
+		format: 'yyyy-mm-dd',
+		startDate: '-0d'
 	});
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77108985-1', 'auto');
+  ga('send', 'pageview');
 
 </script>
 </body>

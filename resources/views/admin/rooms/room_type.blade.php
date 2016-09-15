@@ -132,9 +132,9 @@ roomController
 
 	<div class="row row2 room-type" style="position:relative">
 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-			<img src="/image/small/hotel.jpg" class="img-responsive text-center box-shadow-white" style="display:block;margin:0 auto;">
+			<img src="/image/full/{{ $selectedroomtype->picture }}" class="img-responsive text-center box-shadow-white" style="display:block;margin:0 auto;">
 			<header class="txt-shadow-black">
-				<a ng-href="javascript:void(0)"><h3 class="text-center"> Superior Rooms </h3></a>
+				<a ng-href="javascript:void(0)"><h3 class="text-center"> {{ $selectedroomtype->name }} </h3></a>
 			</header>
 			<div class="dropdown">
 				<button class="btn  btn-block btn-warning btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Room Settings
@@ -186,11 +186,11 @@ roomController
 
 					<tr>
 						<td>
-							Room Price
+							Base Price
 						</td>
 
 						<td style="color:#4AED46">
-							P {{ number_format($selectedroomtype->displayPrice, 2) }}
+							P {{ number_format($selectedroomtype->base_price, 2) }}
 						</td>
 					</tr>
 					<tr>

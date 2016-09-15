@@ -59,6 +59,7 @@
 	data-search="true"
 	data-show-refresh="true"
 	data-show-toggle="true"
+	data-sort-order="desc"
 	data-show-columns="true"
 	data-row-style='rowStyle'
 	data-toolbar="#toolbar"

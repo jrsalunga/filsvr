@@ -108,6 +108,8 @@ public function update($id, CreateRoomType $request)
     
     $input['breakfast']=$request->get("breakfast", 0);
     $room_features = $request->get("room_feature", array());
+    /*
+    Under maintenance
     if($request->hasFile("picture"))
     { 
 
@@ -119,9 +121,10 @@ public function update($id, CreateRoomType $request)
     }else
     {
       $input['picture'] = "";
-    }
+    }*/
+   // return $input;
     $roomtype = RoomType::with("features")->find($id);
-    $roomtype->update($input);
+    $roomtype->update($input); 
     if($roomtype->id)
     {
       foreach($roomtype->features as $rtf)

@@ -89,7 +89,7 @@ https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-
 					Contact No
 				</td>
 				<td>
-					<input name="contact_no" class="form-control" type="text" value="{{ $customer->firstname }}">
+					<input name="contact_no" class="form-control" type="text" value="{{ $customer->contact_no }}">
 				</td>
 			</tr>
 			

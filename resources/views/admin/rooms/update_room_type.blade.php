@@ -180,7 +180,7 @@
 				<td>
 					<select name="beds" id="input" class="form-control" required="required">
 						@for($i=1;$i<10;$i++)
-						<option value="{{ $i }}" @if($i == $selectedroomtype->beds) @endif>{{ $i }}</option>
+						<option value="{{ $i }}" @if($i == $selectedroomtype->beds) selected @endif>{{ $i }}</option>
 						@endfor
 					</select>
 				</td>

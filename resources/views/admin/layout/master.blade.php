@@ -41,9 +41,10 @@
 					<img src="/image/avatar/default-user.jpg" class='img-responsive text-center' style='margin:0 auto'>				
 					<div style='width:100%;font-size:15px;color:white'>
 					</div>
-					<h4 class='text-center'>Jonathan Espanol</h4>
+					
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style='padding:3px;'>
-						<button type="button" class="btn btn-sm btn-block btn-warning"><span class="glyphicon glyphicon-glyphicon glyphicon-cog" aria-hidden="true"></span> Account Settings </button>
+						<a href="/admin/users/myprofile/" type="button" class="btn 
+						btn-sm btn-block btn-warning"><span class="glyphicon glyphicon-glyphicon glyphicon-cog" aria-hidden="true"></span> Account Settings </a>
 					</div>
 					<div style='padding:3px;' class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						<button type="button" class="btn btn-sm btn-block btn-danger"><span class="glyphicon glyphicon-glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</button>
@@ -92,8 +93,8 @@
 						</li> 
 
 						<ul class="sub-menu collapse" id="promo">
-							<li><a href="/admin/promos">Promos</a></li>
-							<li><a href="/admin/promos/create">Create new Promo</a></li>
+							<li><a href="/admin/pricing-calendar">Pricing Calendar</a></li>
+							<li><a href="/admin/pricing-calendar/create">Create new Pricing Calendar</a></li>
 							
 						</ul>
 
@@ -119,10 +120,7 @@
 							</a>
 						</li>
 
-						<ul class="sub-menu collapse" id="customer">
-							<li><a href="/admin/customers">Customers</a></li>
-							<li><a href="/admin/customers/create/">Register new Customer</a></li>
-						</ul>
+						
 					</ul>
 				</div>
 			</div>

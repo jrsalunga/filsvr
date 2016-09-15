@@ -96,11 +96,27 @@
 		</form>
 	</div>
 	@endif
+
+	@if(Session::has("cancelled"))
+	<div class="alert alert-warning">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Caution</strong> {{ Session::get("caution") }}
+		<form method="POST" action="/admin/booking/{{ $booking->id}}" style="pull-right">
+			{{ csrf_field() }}
+			<input type="hidden" name="_method" value="patch">
+			<input type="hidden" name="sure" value="true">
+			{{ Session::get("cancelled") }}
+			<button type="submit" name="booking_status" value="cancelled" class="btn btn-sm btn-danger"><span style="color:white" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Cancel this booking now.</button>
+		</form>
+	</div>
+	@endif
+
 	<table class="table table-striped">
 		<thead>
 			<th colspan=2>
 
 				BOOKING INFORMATION <a href="/admin/booking/{{ $booking->booking_no }}/invoice" class="pull-right btn btn-primary"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Print Invoice</a>
+				<a href="/admin/booking/{{ $booking->booking_no }}/registration" class="pull-right btn btn-success"><span class="glyphicon glyphicon-list-users" aria-hidden="true"></span>Print Registration</a>
 			</th>
 		</thead>
 		<tbody>
@@ -158,13 +174,21 @@
 							{{ $booking->booking_status }} <button type="submit" name="booking_status" value="completed" class="btn btn-sm btn-success"><span style="color:white" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Set Complete Booking</button>
 						</form>
 						
-						@elseif($booking->booking_status == "pending")	
+						@elseif(strtolower($booking->booking_status) == "pending")	
 						<form method="POST" action="/admin/booking/{{ $booking->id}}">
 							{{ csrf_field() }}
 							<input type="hidden" name="_method" value="patch">
-							{{ $booking->booking_status }} <button type="submit" name="booking_status" value="Checked In" class="btn btn-sm btn-success"><span style="color:white" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Check in now</button>
+							{{ $booking->booking_status }} <button type="submit" name="booking_status" value="Booked" class="btn btn-sm btn-success"><span style="color:white" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Confirm this booking</button>
+						</form>
+						
+						@elseif(strtolower($booking->booking_status) == "booked")	
+						<form method="POST" action="/admin/booking/{{ $booking->id}}">
+							{{ csrf_field() }}
+							<input type="hidden" name="_method" value="patch">
+							{{ $booking->booking_status }} <button type="submit" name="booking_status" value="Checked In" class="btn btn-sm btn-success"><span style="color:white" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Check In this booking</button>
 						</form>
 						@else
+
 						{{ $booking->booking_status }}
 						@endif
 					</td>
@@ -232,6 +256,16 @@
 				</tr>
 			</tbody>
 		</table>
+		@if($booking->booking_status != "cancelled")
+		<div class="well">
+			<form method="POST" action="/admin/booking/{{ $booking->id}}" style="pull-right">
+				{{ csrf_field() }}
+				<input type="hidden" name="_method" value="patch">
+				Cancel booking. This process is ireversible. 
+				<button type="submit" name="booking_status" value="cancelled" class="btn btn-danger"><span class="glyphicon glyphicon-glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel Booking</button>
+			</form>
+		</div>
+		@endif
 		<table  class="table table-striped">
 			<thead>
 				<tr>
@@ -263,17 +297,17 @@
 					</td>
 					<td>
 						<form method="POST" action="/admin/booking/{{ $booking->id }}">
-						<input type="hidden" name="booked_room_id" value="{{ $rooms->id }}">
-						<input type="hidden" name="_method" value="PATCH">
-						{{ csrf_field() }}
-						<select name="room_id" id="input" class="form-control" required="required">
-							<option value="{{ $rooms->room_id }}"> {{ $rooms->roomDetails->room_no }}</option>
-							@foreach($available_rooms1 as $ar1)
-							<option value="{{ $ar1->id }}"> {{ $ar1->room_no }}</option>
-							@endforeach
-						</select>
-						<button name="updateroom" value="true;" type="submit" class="btn btn-xs btn-large btn-block btn-primary"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Update</button>
-					</form>
+							<input type="hidden" name="booked_room_id" value="{{ $rooms->id }}">
+							<input type="hidden" name="_method" value="PATCH">
+							{{ csrf_field() }}
+							<select name="room_id" id="input" class="form-control" required="required">
+								<option value="{{ $rooms->room_id }}"> {{ $rooms->roomDetails->room_no }}</option>
+								@foreach($available_rooms1 as $ar1)
+								<option value="{{ $ar1->id }}"> {{ $ar1->room_no }}</option>
+								@endforeach
+							</select>
+							<button name="updateroom" value="true;" type="submit" class="btn btn-xs btn-large btn-block btn-primary"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Update</button>
+						</form>
 					</td>
 					<td>
 						{{ $rooms->roomTypeDetails->name }}

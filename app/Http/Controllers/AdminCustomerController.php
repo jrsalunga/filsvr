@@ -115,8 +115,8 @@ class AdminCustomerController extends Controller
         {
             return back()->withErrors(array("Something went wrong. Please try again."));
         } 
+        }
     }
-}
 
 public function searchCustomer(Request $request)
 {

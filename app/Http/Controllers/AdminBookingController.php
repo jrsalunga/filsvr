@@ -40,26 +40,49 @@ class AdminBookingController extends Controller
 		return $session->content;
 	}
 
+	public function viewRegistration($booking_no)
+	{
+		$booking = \App\Booking::where("booking_no", $booking_no)->with("customer","rooms.roomTypeDetails")->first();
+		if($booking)
+		{
+		//	return $booking;
+			return view("admin.booking.registration", compact("booking"));
+
+
+		}
+	}
+
 	public function store(CreateBookingRequest $request)
 	{
 		$input = $request->all();
-		
-		$payment_option = $request->get("payment_option", "");
+		$session = $this->getDbSession($request);
+		$session = json_decode($session, true);
+
+		$total_price = intval(preg_replace('/[^\d.]/', '', $input['total_price']));
+		$amount_paid =(int) $request->get("amount_paid", "0");
+		$difference = $total_price - $amount_paid;
+		$payment_status = ($difference > 1) ? "Partially Paid" : "Fully Paid";
 		$tmparr = array();
+		
 		foreach($input['booked_room_details'] as $brd)
 		{
 			array_push($tmparr,$brd['room_id']);
 		}
 
 		$booked_rooms = BookedRoom::whereIn('room_id',$tmparr)->with('roomTypeDetails', 'bookingDetails')->availability($input['check_in'], $input['check_out'])->get();
-		//return $tmparr;
-		foreach($booked_rooms as $key=>$br)
+
+		if($booked_rooms->count() >0)
 		{
-			if($br->bookingDetails->booking_status=="cancelled")
+			foreach($booked_rooms->get() as $br)
 			{
-				unset($booked_rooms[$key]);
+				if($br->room_id == $input['room_id'] && $br->bookingDetails->booking_status != "cancelled")
+					return response("The room is not available..",502);
+
+				if(($booked_rooms->count() + count($session["customer_booked_room"])) > $br->roomTypeDetails->quantity)
+					return response("The room is not available...",502);
 			}
 		}
+
 		if(count($booked_rooms) < 1)
 		{
 			try
@@ -83,7 +106,8 @@ class AdminBookingController extends Controller
 				$booking_input['booking_no'] = uniqid();
 				$booking_input['total_price'] =intval(preg_replace('/[^\d.]/', '', $input['total_price']));
 				$booking_input['customer_id'] = $input['customer'];
-				$booking_input['payment_status'] = $payment_option;
+				$booking_input['payment_status'] = $payment_status;
+				$booking_input['payment_mode'] = $input['payment_mode'];
 				$booking_input['booking_status'] = "Checked In";
 				$booking_input['cashier'] = Auth::user()->firstname." ".Auth::user()->lastname;
 				$booking = Booking::create($booking_input);
@@ -97,7 +121,6 @@ class AdminBookingController extends Controller
 					
 					$additional_transaction = AdditionalTransaction::create($additional_transaction_input);
 					foreach($input['booked_room_details'] as $brd){
-						
 						$booked_room_input = array();
 						$booked_room_input['booking_id'] = $booking->id;
 						$booked_room_input['check_in'] = $input['check_in'];
@@ -115,7 +138,7 @@ class AdminBookingController extends Controller
 							
 						}
 					}
-					return response("Successfully created", 200);
+					return response("You have successfully store a new booking to database ", 200);
 				}
 			}catch(Exception $e)
 			{
@@ -124,6 +147,7 @@ class AdminBookingController extends Controller
 			
 		}
 	}
+
 	public function __construct()
 	{
 
@@ -136,7 +160,7 @@ class AdminBookingController extends Controller
 		if($request->ajax())
 		{
 			$order = $request->input("order","desc");
-			$sort = $request->input("sort", "created_at");
+			$sort = $request->input("sort", "updated_at");
 			$take = $request->input("limit",10);
 			$skip = $request->input("offset", 0);
 			$search = $request->input("search", "");
@@ -175,6 +199,7 @@ class AdminBookingController extends Controller
 			$output = array();
 			$output['total'] = $booking->count();
 			$output['rows'] = $booking->with('customer')->orderBy($sort,$order)->skip($skip)->take($take)->get();
+			//var_dump($output);
 			return $output;
 		}
 		$customerDetails = false;
@@ -212,7 +237,7 @@ class AdminBookingController extends Controller
 			{
 				$query->whereNotIn("id", $booked_rooms_arr)->where("target_booking", $booking->booking_type);
 			},'rooms.details','rooms.details.mealPlans'))->get();
-
+			//return $booking;
 			foreach($available_rooms as $key=>$ar)
 			{
 				$booked_rooms = BookedRoom::where("room_type_id", $ar->id)->with('roomTypeDetails', 'bookingDetails')->availability($input['check_in'], $input['check_out']);
@@ -223,15 +248,18 @@ class AdminBookingController extends Controller
 					{
 						if($br->room_id == $input['room_id'] && $br->bookingDetails->booking_status != "cancelled")
 						{
-							unset($available_rooms[$key]);
+							//return "test";
+							//return $br;
+							//unset($available_rooms[$key]);
 						}
 						if($booked_rooms->count() > $br->roomTypeDetails->quantity)
 						{
-							unset($available_rooms[$key]);
+							//unset($available_rooms[$key]);
 						}
 					}
 				}
 			}
+			// $available_rooms;
 
 			$available_rooms1 = array();
 			foreach($available_rooms as $ar1)
@@ -263,6 +291,7 @@ class AdminBookingController extends Controller
 			$booking->tax_price = $tax_price;
 			$booking->additional_transaction_price = $total_additional_transaction;
 			//return $booking;
+			//return $available_rooms1;
 			return view("admin.booking.show", compact('booking','available_rooms1'));
 		}
 		return abort(404);
@@ -278,11 +307,21 @@ class AdminBookingController extends Controller
 		try
 		{
 			$booking = Booking::with('additionalTransaction')->whereId($input['booking_id'])->first();
+			//return $booking;
 			if($booking)
 			{
+
 				if($booking->booking_status=="completed")
 					return back()->withErrors(array("You can't add more transaction to this booking."));
-				$additional_transaction_price = 0;
+				$additional_transaction_price = (int) $input['amount'];
+				if($additional_transaction_price > 1)
+				{
+					$booking->total_price += abs($additional_transaction_price);
+				}else
+				{
+					$booking->amount_paid += abs($additional_transaction_price);
+				}
+				/*
 				foreach($booking->additionalTransaction as $at){
 					$additional_transaction_price += $at->amount;	
 				}
@@ -295,18 +334,19 @@ class AdminBookingController extends Controller
 					}
 					else
 					{
-						$booking->amount_paid += abs($additional_transaction_price);
+						$booking->amount_paid =  abs($additional_transaction_price);
 					}
 				}
-				$booking->total_price += $additional_transaction_price;		
+				if($additional_transaction_price > 0)
+					$booking->total_price += $additional_transaction_price;		
+					*/
+
 				$additonaltransaction = AdditionalTransaction::create($input);
 				if($additonaltransaction)
 				{
 					$booking->save();
 					return back()->withSuccess("You have successfully added new transaction");
 				}
-
-				
 			}
 			return back()->withErrors(array("Booking Referece No is not valid."));
 		}catch(Exception $e)
@@ -366,13 +406,16 @@ class AdminBookingController extends Controller
 
 	public function update($id, Request $request)
 	{
+
 		//\Session::put('_token', sha1(microtime()));
 		$input = $request->all();
 		$booking = Booking::with('additionalTransaction')->whereId($id)->first();
+		
 		if($booking)
 		{
 			if($request->has("booking_status"))
 			{
+
 				if(strtolower($input['booking_status']) == "completed"){
 					if($booking->payment_status!="Fully Paid")
 					{
@@ -396,6 +439,38 @@ class AdminBookingController extends Controller
 					$booking->booking_status = "completed";
 					$booking->save();
 					return back()->withSuccess("You have successfully changed this booking status.");
+					
+				}else if(strtolower($input['booking_status']) == "cancelled")
+				{
+					if(!$request->has("sure"))
+					{
+						return back()->withCancelled("Are you sure you want to cancel this booking?");
+					}
+
+					$booking->booking_status = "cancelled";
+					$booking->save();
+					return back()->withSuccess("You have cancelled this booking.");
+				}
+
+				else if(strtolower($input['booking_status']) == "booked")
+				{
+					
+
+					$booking->booking_status = "Booked";
+					$booking->save();
+					return back()->withSuccess("You have successfully confirmed this booking.");
+				}
+				else if(strtolower($input['booking_status']) == "checked in")
+				{
+					$tmp_date2 = Carbon::parse(date("Y-m-d", strtotime($booking->check_in)));
+					$date_now2 = Carbon::parse(date("Y-m-d"));
+					if($date_now2->lt($tmp_date2))
+					{
+						return back()->withErrors(array("Too early to check in this booking. Please check booking check-in details. Thank You."));
+					}
+					$booking->booking_status = "Checked In";
+					$booking->save();
+
 				}
 			}
 			else if($request->has("payment_status"))
@@ -445,6 +520,7 @@ class AdminBookingController extends Controller
 			}
 
 		}
+
 		return abort(404);
 	}
 	public function bookingDate(DateRequest $request)
@@ -490,7 +566,6 @@ class AdminBookingController extends Controller
 				}
 			}
 		}
-		
 
 		return $available_rooms;
 	}
@@ -517,7 +592,6 @@ class AdminBookingController extends Controller
 				unset($tmp_customer_booked_room[$key]);
 			}
 		}
-
 		//return $tmp_customer_booked_room;
 		$session['booked_room_details'] = $tmp_booked_room;
 		$session['customer_booked_room'] = $tmp_customer_booked_room;
@@ -532,19 +606,19 @@ class AdminBookingController extends Controller
 			array_push($booked_rooms_arr, $cbr['room_id']);
 		}
 
-		
 		foreach($booked_rooms as $br)
 		{
-
 			if(!is_null($br->room_id) && $br->bookingDetails->booking_status!="cancelled") 
 				array_push($booked_rooms_arr, $br->room_id);
 		}
+
 		$available_rooms = RoomType::with(array("rooms"=>function($query) use ($booked_rooms_arr)
 		{
 			$query->whereNotIn("id", $booked_rooms_arr);
 		},'rooms.details','rooms.details.mealPlans'))->get();
 		return $available_rooms;
 	}
+
 	public function tempRooms(BookingRoomsRequest $request)
 	{
 		return $return;
@@ -552,7 +626,6 @@ class AdminBookingController extends Controller
 
 	public function bookingDetails(Request $request)
 	{
-
 		if($request->ajax())
 		{
 			// initialize website settings
@@ -561,10 +634,12 @@ class AdminBookingController extends Controller
 			//get pre created sessions
 			$session = $this->getDbSession($request);
 			$session = json_decode($session, true);
-			$check_in = Carbon::parse($session['check_in']);
-			$check_out = Carbon::parse($session['check_out']);
+			$check_in = Carbon::parse(date("Y-m-d", strtotime($session['check_in'])));
+
+			$check_out = Carbon::parse(date("Y-m-d", strtotime($session['check_out'])));
 			$nights = $check_out->diffInDays($check_in);
-			
+			$check_in_tmp = $check_in;
+			$check_out_tmp = $check_out;
 			$total_price = 0;
 			$customer_booked_room = ((isset($session['customer_booked_room']))) ? $session['customer_booked_room'] : array();
 			$session['customer_booked_room'] = $customer_booked_room;
@@ -584,13 +659,12 @@ class AdminBookingController extends Controller
 			$booked_room = array();
 			foreach($session['customer_booked_room'] as $cbr)
 			{
-				$check_in_tmp = $check_in;
+				$check_in_tmp = Carbon::parse($cbr["check_in"]);
 				$check_out_tmp = $check_out;
-				$counter = 0;	
+				$counter = 1;	
 				$roomtype = RoomType::where("id",$cbr['room_type_id'])->with("mealPlans")->first();
 				if($roomtype)
 				{
-
 					$roomtype_tmp = array();
 					$roomtype_tmp['uniqid'] = uniqid();
 					$roomtype_tmp['room_id'] = $cbr['room_id'];
@@ -603,11 +677,14 @@ class AdminBookingController extends Controller
 					$roomtype_tmp['food_price'] = 0;
 					$tmp_price = array();
 					$tmp = array();
+					$test = 0;
 					while($counter <= $nights)
 					{
+
 						$price_calendar = PricingCalendar::availability($check_in_tmp,$check_in_tmp)->first();
 						if($price_calendar)
 						{
+
 							array_push($tmp_price, (int) $price_calendar->price);
 						}else
 						{
@@ -625,6 +702,7 @@ class AdminBookingController extends Controller
 
 								case 2:
 							//$roomtype_tmp['room_price'] += (int) $roomtype->displayPriceTuesday;
+								
 								array_push($tmp_price, (int) $roomtype->displayPriceTuesday);
 								break;
 
@@ -691,7 +769,6 @@ class AdminBookingController extends Controller
 			return $session;
 		}
 		return response("You are not authorized to access this page.", 403);
-		
 	}
 
 	public function bookingReset(Request $request)
@@ -712,7 +789,6 @@ class AdminBookingController extends Controller
 			}
 		}
 
-
 		$children = (int) $input['children'];
 		$adult = (int) $input['adult'];
 		if(($children+$adult) < 1)
@@ -720,27 +796,23 @@ class AdminBookingController extends Controller
 			return response("Invalid number of Capacity",502);
 		}
 
-
 		$input['check_in'] = $session['check_in'];
 		$input['check_out'] = $session['check_out'];
-		
 		$booked_rooms = BookedRoom::where("room_type_id", $input['room_type_id'])->with('roomTypeDetails', 'bookingDetails')->availability($input['check_in'], $input['check_out']);
 		$booked_rooms_arr = array();
-
 		if($booked_rooms->count() >0)
 		{
 			foreach($booked_rooms->get() as $br)
 			{
 				if($br->room_id == $input['room_id'] && $br->bookingDetails->booking_status != "cancelled")
-					response("The room is not available..",502);
+					return response("The room is not available..",502);
 
-				if($booked_rooms->count() > $br->roomTypeDetails->quantity)
-					return $br->roomTypeDetails->quantity;
-				return response("The room is not available...",502);
+				if(($booked_rooms->count() + count($session["customer_booked_room"])) > $br->roomTypeDetails->quantity)
+					return response("The room is not available...",502);
 			}
 		}
-		$tmp_customer_booked_room = (isset($session["customer_booked_room"])) ? $session["customer_booked_room"] : array();
 
+		$tmp_customer_booked_room = (isset($session["customer_booked_room"])) ? $session["customer_booked_room"] : array();
 		array_push($tmp_customer_booked_room, $input);
 		$session["customer_booked_room"] = $tmp_customer_booked_room;
 		$this->putDbSession($session, $request);

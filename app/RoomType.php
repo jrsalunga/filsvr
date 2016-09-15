@@ -13,10 +13,10 @@ class RoomType extends Model
 //
 	protected $total_price;
 	protected $table = 'room_type';
-	protected $fillable = ["name","picture", "short_description","description", "max_adult",
-	"max_children","beds","room_area","meal_plan","base_price", "price_monday", "price_tuesday", "price_wednesday", "price_thursday", "price_friday", "price_saturday",	'max_online_booking'];
+	protected $fillable = ["name","picture", "short_description","full_description", "max_adult",
+	"max_children","beds","room_area","meal_plan","base_price", "price_monday", "price_tuesday", "price_wednesday", "price_thursday", "price_friday", "price_saturday",	"price_sunday","beds",'max_online_booking'];
 	
-	protected $appends = array("room_count","quantity",
+	protected $appends = array("capacity","room_count","quantity",
 		"display_price", 
 		"display_price_monday",
 		"display_price_tuesday",
@@ -47,16 +47,20 @@ class RoomType extends Model
 		return $this->hasOne("App\MealPlan", "id", "meal_plan");
 	}
 
+	public function getCapacityAttribute()
+	{
+		return ((int) $this->max_adult + (int) $this->max_children);
+	}
 	public function getDisplayPriceMondayAttribute()
 	{
 		$price = (is_numeric($this->price_monday) && $this->price_monday > 0) ? $this->price_monday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 
 	public function getDisplayPriceTuesdayAttribute()
 	{
 		$price = (is_numeric($this->price_tuesday) && $this->price_tuesday > 0) ? $this->price_tuesday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 
 	public function getQuantityAttribute()
@@ -106,29 +110,29 @@ class RoomType extends Model
 	public function getDisplayPriceWednesdayAttribute()
 	{
 		$price = (is_numeric($this->price_wednesday) && $this->price_wednesday > 0) ? $this->price_wednesday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 	public function getDisplayPriceThursdayAttribute()
 	{
 		$price = (is_numeric($this->price_thursday) && $this->price_thursday > 0) ? $this->price_thursday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 	public function getDisplayPriceFridayAttribute()
 	{
 		$price = (is_numeric($this->price_friday) && $this->price_friday > 0) ? $this->price_friday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 	
 	public function getDisplayPriceSaturdayAttribute()
 	{
 		$price = (is_numeric($this->price_saturday) && $this->price_saturday > 0) ? $this->price_saturday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 
 	public function getDisplayPriceSundayAttribute()
 	{
 		$price = (is_numeric($this->price_sunday) && $this->price_sunday > 0) ? $this->price_sunday : $this->base_price;
-		return number_format($price);
+		return $price;
 	}
 
 	public function getDisplayPriceAttribute()

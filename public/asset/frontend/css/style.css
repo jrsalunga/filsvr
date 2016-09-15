@@ -48,6 +48,10 @@ table.pricing td, table.pricing th
 	text-align:center;
 	border:2px solid rgb(168, 168, 168) !important;
 }
+
+.col-sm-12, .col-xs-12{
+	padding: 10px;
+}
 .payment-option
 {
 	color:white;
@@ -67,7 +71,12 @@ table.pricing td, table.pricing th
 	font-weight:bold !important;
 }
 
-.main-content #step3 .form-control
+.main-content
+{
+	margin-bottom: 100px;
+}
+
+.main-content  .form-control
 {
 	border-radius:3px;
 	-moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
@@ -78,6 +87,16 @@ table.pricing td, table.pricing th
 
 	margin-top:20px;
 
+}
+
+.reservation-sidebar h5.heading
+{
+	color: #a5a5a5 !important;
+}
+
+.reservation-sidebar .date.content
+{
+	color: rgb(104, 165, 104) !important;
 }
 
 /* end of media queries */
@@ -352,7 +371,7 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 	color:#7E7E7E;
 	margin-top:30px;
 	font-family: Open Sans, Arial;
-	text-shadow: 1px 1px 2px rgba(255,255,255, 1);
+	text-shadow: 1px 1px 1px rgba(255,255,255, 0.8);
 
 }
 
@@ -371,8 +390,12 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 	color:#7E7E7E;
 	margin-top:30px;
 	font-family: Open Sans, Arial;
-	text-shadow: 1px 1px 2px rgba(255,255,255, 1);
+	text-shadow: 1px 1px 1px rgba(255,255,255, 0.8);
 
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
 
 .room-description
@@ -398,7 +421,37 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 {
 	color : rgb(83, 105, 93);
 }
+.main-content .rooms a:hover
+{
+	text-decoration: none;
+	color:#E5AD66;
+	
+}
+.main-content .rooms a
+{
+	color:#ad977b;
+}
 
+.range.start table td, .range.end table td
+{
+	font-size: 20px;
+}
+
+#step2 .well
+{
+	padding: 0;
+	margin-top: 10px;
+}
+
+#step2 .well h4
+{
+	color: #7C7C7C;
+}
+
+#step2 .well button
+{
+	margin-top: 37px;
+}
 .main-content .rooms hr
 {
 	
@@ -415,7 +468,7 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 	color:white;
 	border-bottom:2px solid white;
 	margin-bottom:0 !important;
-	text-shadow: 1px 1px 2px rgba(0,0,0, 1);
+	text-shadow: 1px 1px 1px rgba(0,0,0, 0.8);
 }
 
 .reservation-sidebar .rooms h5 span
@@ -424,6 +477,11 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 	font-weight:bold;
 	color:rgb(109, 255, 109);
 	margin-left:10px;
+}
+
+.reservation-sidebar .rooms h3 span
+{
+	color: rgb(218, 207, 0);
 }
 
 .reservation-sidebar .rooms h5:nth-of-type(2)
@@ -456,7 +514,7 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 
 .main-content .media
 {
-	padding-top:20px;
+	padding-top:10px;
 }
 
 .reservation-sidebar
@@ -479,6 +537,12 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li a:focus {
 .text-control
 {
 	font-family:Open Sans, Arial;
+}
+
+.pick-date-text
+{
+padding: 50px;
+color: #ABABAB;
 }
 
 .reservation-sidebar label

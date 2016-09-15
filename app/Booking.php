@@ -17,12 +17,15 @@ class Booking extends Model
 	'total_price',
 	'amount_paid',
 	'credits',	
-	'max_online_booking',
+	'flight_details',
+	'payment_mode',
 	'payment_status'];
 
 	protected $appends = [
 	'check_in',
-	'check_out'];
+	'check_out',
+	'total_profit'
+	];
 
 	public function rooms()
 	{
@@ -32,6 +35,15 @@ class Booking extends Model
 	public function additionalTransaction()
 	{
 		return $this->hasMany("App\AdditionalTransaction","booking_id", "id");
+	}
+
+	public function getTotalProfitAttribute()
+	{
+		$amount_paid = (int) $this->amount_paid;
+		$total_price = (int) $this->total_price;
+		$difference = $total_price - $amount_paid;
+		if(strtolower($this->booking_status) == "cancelled")
+		return ($difference > 0) ? $amount_paid : $total_price;
 	}
 
 	/*mutators==========*/

@@ -21,6 +21,24 @@ class Room extends Model
 		{
 			$query1->where("room_id", $this->id);
 		})->availability(date("Y-m-d"), date("Y-m-d"))->first();
+		
+		$booked_rooms = BookedRoom::where("room_type_id", $this->room_type_id)->with('roomTypeDetails', 'bookingDetails')->availability($input['check_in'], $input['check_out']);
+		$booked_rooms_arr = array();
+		if($booked_rooms->count() >0)
+		{
+			foreach($booked_rooms->get() as $br)
+			{
+				if($br->room_id == $input['room_id'] && $br->bookingDetails->booking_status != "cancelled")
+				{
+					return "booked";
+				}
+				if($booked_rooms->count() > $br->roomTypeDetails->quantity)
+				{
+					return "booked";
+				}
+			}
+		}
+		
 		return ($booked_room) ? "booked": $value;
 	}
 

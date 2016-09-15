@@ -1,6 +1,7 @@
 @extends("admin.layout.master")
 @section("scripts")
 <script type="text/javascript" src="/asset/admin/js/table-formatter.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js'></script>
 @endsection
 @section("modal")
 <div class="modal fade" id="create-feature-modal">

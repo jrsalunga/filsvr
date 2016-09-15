@@ -30,13 +30,13 @@
 		<body >
 			<table CLASS="table" style="border:2px solid #d8d8d8">
 				<tr>
-					<td colspan=4 style="font-weight:bold">
+					<td colspan=5 style="font-weight:bold">
 						{{ $customer['firstname'] }} {{ $customer['lastname'] }}
 					</td>
-					<td style="font-weight:bold" class="text-right">
+				<!-- 	<td style="font-weight:bold" class="text-right">
 						VAT No
 					</td>
-					<td class="text-left"> {{ $id }}</td>
+					<td class="text-left"> {{ $id }}</td> -->
 				</tr>
 				<tr>
 					<td colspan=4>

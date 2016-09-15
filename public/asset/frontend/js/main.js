@@ -1,23 +1,42 @@
+$(window).load(function(){
+        //$('select').select2();
+        setTimeout(function()
+        {
+            $("#loader-container").fadeOut(300);
+        },10);
+        
+    });
 
-$(document).ready(function () {
- alert("test")
-    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+    var step3 = $("a[href='#step3']");
+    step3.on("click", function()
+    {
+       $("#submit-booking").fadeOut();
+    })
 
+     var step2 = $("a[href='#step2']");
+    step2.on("click", function()
+    {
+       $("#submit-booking").fadeIn();
+    })
+
+     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+       
         var $target = $(e.target);
         
         if ($target.parent().hasClass('disabled')) {
+            
             return false;
         }
     });
-
-    $(".btn-primary").click(function (e) {
+/*
+     $(".btn-primary").click(function (e) {
 
         var $active = $('.wizard .nav-wizard li.active');
         $active.next().removeClass('disabled');
         nextTab($active);
-    });
 
-});
+    });
+*/
 
     $('input[type=radio][name=payment-option]').change(function() {
         
@@ -30,10 +49,8 @@ $(document).ready(function () {
     });
 
 
-    $('.range').datepicker({
-        inputs: $('.range-start, .range-end')
-    });
-
+   
+/*
     $('#checkin-datepicker').datepicker();
     $('#checkin-datepicker').on("changeDate", function() {
         $('#my_hidden_input').val(
@@ -47,7 +64,7 @@ $(document).ready(function () {
         $('#my_hidden_input').val(
             $('#datepicker').datepicker('getFormattedDate')
             );
-    });
+    });*/
     
     function nextTab(elem) {
         $(elem).next().find('a[data-toggle="tab"]').click();

@@ -18,13 +18,14 @@ class FrontendController extends Controller
     
     public function index(Request $request)
     {
+        $roomtype = \App\RoomType::with('features')->take(2)->get();
         $request->session()->flash('current_page', 'home');
-        return view("frontend.index");
+        return view("frontend.index", compact("roomtype"));
     }
 
     public function contact(Request $request)
     {
-        $request->session()->flash('current_page', 'home');
+        $request->session()->flash('current_page', 'contact');
         $settings = WebsiteSetting::first();
       
         return view("frontend.contact.index", compact("settings"));

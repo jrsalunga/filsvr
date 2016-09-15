@@ -86,7 +86,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 	//validate if all inputs of the booking is correct
 	$scope.btnProceedBooking = function(data)
 	{
-		if(angular.isUndefined(data.payment_option) || angular.isUndefined(data.change) || (angular.isDefined(data.change) && data.change < 0) || angular.isUndefined(data.customer) || (angular.isDefined(data.cutomer) && parseInt(data.cutomer) > 0))
+		if(angular.isUndefined(data.payment_mode) || angular.isUndefined(data.change) ||  angular.isUndefined(data.customer) || (angular.isDefined(data.cutomer) && parseInt(data.cutomer) > 0))
 		{
 			$scope.errors = "Please fill in all the necessary fields correctly.";
 		}else
@@ -205,8 +205,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 
 	function computeChange(amount_paid, total_price)
 	{	
-		if(angular.isDefined($scope.booking_details.payment_option))
-		{
+		
 			total_price = total_price.replace(/,/g, "");
 			total_price = parseInt(total_price);
 			
@@ -217,12 +216,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 			}
 			amount_paid = (isNaN(parseInt(amount_paid))) ? 0 : parseInt(amount_paid);
 			$scope.booking_details.change = amount_paid - total_price;
-		}
-		else
-		{
-			$scope.booking_details.change= -1;
 
-		}
 	}
 
 

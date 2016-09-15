@@ -21,8 +21,12 @@ class FrontendRoomsController extends Controller
  }
  public function index()
  {
+    $websitesettings = \App\WebsiteSetting::first();
+    $contact_number = "N/A";
+    if($websitesettings)
+        $contact_number = ($websitesettings->contact_no !="") ? $websitesettings->contact_no : "N/A";
     $rooms = RoomType::with('features')->get();
-    return view("frontend.rooms.index", compact("rooms"));
+    return view("frontend.rooms.index", compact("rooms", "contact_number"));
 }
 
     /**
@@ -58,8 +62,13 @@ class FrontendRoomsController extends Controller
         $features = Feature::all();
         if($room)
         {
+            $websitesettings = \App\WebsiteSetting::first();
+    $contact_number = "N/A";
+    if($websitesettings)
+        $contact_number = ($websitesettings->contact_no !="") ? $websitesettings->contact_no : "N/A";
+
          
-           return view("frontend.rooms.show", compact("room", "features")); 
+           return view("frontend.rooms.show", compact("room", "features", "contact_number")); 
        }
        return abort(404);
        

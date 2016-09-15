@@ -42,9 +42,9 @@
 				<tr>
 					<td >
 
-						<select name="scope" ng-model="scope" id="input" class="form-control" required="required">
-							<option value="monthly">monthly</option>
-							<option value="range">range</option>
+						<select name="scope" ng-model="scope" id="input" class="form-control" ng-init="scope='{{ $query_scope }}'" required="required">
+							<option value="monthly" @if($query_scope=='monthly') selected="selected" @endif>monthly</option>
+							<option value="range" @if($query_scope=='range') selected="selected" @endif>range</option>
 						</select>
 					</td>
 					<td ng-show="scope=='monthly'">
@@ -54,7 +54,7 @@
 							while($counter<=12)
 							{
 								?>
-								<option value="{{ $counter }}"> {{ date("F", strtotime("2016-$counter"))}} </option>
+								<option value="{{ $counter }}" @if($month==$counter) selected @endif> {{ date("F", strtotime("2016-$counter"))}} </option>
 								<?php
 								$counter++;
 							}
@@ -69,7 +69,7 @@
 							{
 								$year1=(int) date("Y")+$counter1-12;
 								?>
-								<option value="{{ $year1 }}">{{ $year1}}</option>
+								<option value="{{ $year1 }}" @if($year==$year1) selected @endif>{{ $year1}}</option>
 								<?php
 								$counter1++;
 							}
@@ -77,10 +77,10 @@
 						</select>
 					</td>
 					<td ng-show="scope=='range'">
-					<input type="text" class="form-control datepicker-input" name="from">
+					<input type="text" value="{{ $from }}" class="form-control datepicker-input" name="from">
 					</td>
 					<td ng-show="scope=='range'">
-					<input type="text" class="form-control datepicker-input" name="to">
+					<input type="text" value="{{ $to }}"class="form-control datepicker-input" name="to">
 					</td>
 					<td>
 						<button type="submit" class="btn btn-large btn-block btn-primary">button</button>
@@ -97,6 +97,11 @@
 	<?php 
 
 	echo $lava->render('LineChart', 'MyStocks', 'stocks-chart'); ?>
+
+	<div id="cancelled-booking"></div>
+	<?php 
+
+	echo $lava->render('LineChart', 'CancelledBooking', 'cancelled-booking'); ?>
 
 	<div id="roomtype-chart"></div>
 	<?php 
