@@ -32,19 +32,19 @@ bookingController
 				Booking Summary
 			</div>
 			<div>
-				Check In: 
+				<small>Check In:</small> 
 			<span class="pull-right">
 				{{ Carbon\Carbon::parse($booking->checkin)->format('D M d, Y h:i A') }}
 			</span>
 			</div>
 			<div>
-				Check Out: 
+				<small>Check Out:</small> 
 			<span class="pull-right">
 				{{ Carbon\Carbon::parse($booking->checkout)->format('D M d, Y h:i A') }}
 			</span>
 			</div>
 			<div class="clearfix">
-				Room Details: <br>
+				<small>Room Details: </small><br>
 				@foreach($booking->rooms as $room)
 					<div>
 					{{ $room->roomTypeDetails->name }} 
@@ -55,12 +55,16 @@ bookingController
 				@endforeach
 			</div>
 			<div>
-				Total Amount:
+				<small>Total Amount:</small> 
 				<span class="pull-right">
 					PHP {{ number_format($booking->total_price,2) }}
 				</span>
 			</div>
 		</div>
+		<span id="siteseal">
+			<script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=F3lMRvKHBss9ETwg1Yhab0EH8QQRF7IPPuj5THMmsoBPeSYiLE95tYByngMe"></script>
+		</span>
+			
 	</div>
 	<div class="col-md-8 col-md-pull-4">
 		<form action="/booking/{{$booking->id}}/payment" method="POST">
@@ -105,7 +109,7 @@ bookingController
 
 			<div>
 				<img src="/image/secured.png" class="img-responsive">
-			</div>
+				</div>
 			</div>
 		</form>
 	</div>

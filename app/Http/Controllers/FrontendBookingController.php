@@ -306,11 +306,6 @@ class FrontendBookingController extends Controller
 			$url = env('BDO_URL_TEST');
 		}
 
-		//$mid = '100000348';
-		//$url = 'https://test.paydollar.com/ECN/eng/payment/payForm.jsp';
-		//$mid = '100011256';
-		//$url = 'https://www.paydollar.com/ECN/eng/payment/payForm.jsp';
-
 		$url .= '?merchantId='.$mid.'&';
 		$url .= 'amount='.$booking->total_price.'&';
 		$url .= 'orderRef='.$booking->booking_no.'&';
@@ -318,9 +313,9 @@ class FrontendBookingController extends Controller
 		$url .= 'lang=E&';
 		$url .= 'payMethod=ALL&';
 		$url .= 'payType=N&';
-		$url .= 'successUrl=http%3A%2F%2Ffilsvr.dev/booking/success&';
-		$url .= 'failUrl=http%3A%2F%2Ffilsvr.dev/booking/fail&';
-		$url .= 'cancelUrl=http%3A%2F%2Ffilsvr.dev/booking/cancel';
+		$url .= 'successUrl='.env('BDO_URL_SUCCESS').'&';
+		$url .= 'failUrl='.env('BDO_URL_FAIL').'&';
+		$url .= 'cancelUrl='.env('BDO_URL_CANCEL');
 		//return $url;
 		return redirect($url);
 	}
