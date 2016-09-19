@@ -39,7 +39,7 @@
 			<center>
 				<img src="/asset/images/loader.gif"> 
 			</center>
-			<h2 class='text-center' style=" text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);">LOADING</h2>
+			<h2 class='text-center' style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);">LOADING</h2>
 		</div>
 	</div>
 
