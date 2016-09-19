@@ -329,17 +329,38 @@ class FrontendBookingController extends Controller
 			$booking->payment_status = 'fully paid';
 			$booking->booked_timestamp = Carbon::now();
 			$booking->save();
-			return $booking;
+
+			return view('frontend.booking.success', compact('booking'));
 		}
+		return abort('404');
 	}
 
 	public function callbackFail(Request $request) {
-		return 'fail';
+		if($request->has('Ref')) {
+			$booking = Booking::where('booking_no', $request->input('Ref'))->first();
+			$booking->booking_status = 'cancelled';
+			$booking->payment_status = 'cancelled';
+			$booking->booked_timestamp = Carbon::now();
+			$booking->save();
+
+			return view('frontend.booking.fail', compact('booking'));
+		}
+		return abort('404');
 	}
 
 
 	public function callbackCancel(Request $request) {
-		return 'cancel';
+
+		if($request->has('Ref')) {
+			$booking = Booking::where('booking_no', $request->input('Ref'))->first();
+			$booking->booking_status = 'cancelled';
+			$booking->payment_status = 'cancelled';
+			$booking->booked_timestamp = Carbon::now();
+			$booking->save();
+
+			return view('frontend.booking.cancel', compact('booking'));
+		}
+		return abort('404');
 	}
 
 	public function __construct()
