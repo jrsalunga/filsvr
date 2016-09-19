@@ -16,13 +16,25 @@ Contact
 			<tr>
 				<td>Telephone No:</td>
 				<td>
-				{{ $settings->telephone_no }}
+					<a href="tel:+6348433152627">{{ $settings->telephone_no }}</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Mobile No:</td>
+				<td>
+				<a href="tel:+639278619077">+63 927 861 9077</a> <small class="label label-default">Globe</small>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+				<a href="tel:+639491999000">+63 949 199 9000</a> <small class="label label-default">Smart</small>
 				</td>
 			</tr>
 			<tr>
 				<td>Email Address:</td>
 				<td>
-				{{ $settings->email }}
+					<a href="mailto:{{ $settings->email }}">{{ $settings->email }}</a>
 				</td>
 			</tr>
 

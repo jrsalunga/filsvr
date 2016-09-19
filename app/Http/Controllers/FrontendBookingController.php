@@ -20,9 +20,15 @@ use App\Http\Requests\FrontendCreateBookingRequest;
 use App\WebsiteSetting;
 use App\Customer;
 use Mail;
+use Log;
 
 class FrontendBookingController extends Controller
 {
+
+
+	public function __construct() {
+			}
+
 	public function putDbSession($content_array, $request)
 	{
 		$session = SessionBooking::firstOrCreate(['ip_address' => $request->ip()]);
@@ -363,10 +369,16 @@ class FrontendBookingController extends Controller
 		return abort('404');
 	}
 
-	public function __construct()
-	{
 
+	public function callbackDatafeed(Request $request) {
+
+		echo 'OK';
+
+		Log::info('callback run via '.$request->method().' method');
+		
 	}
+
+	
 	
 	public function index(Request $request)
 	{

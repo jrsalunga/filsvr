@@ -91,6 +91,8 @@ Route::post("booking/{id}/payment", "FrontendBookingController@postPayment");
 Route::get("booking/success", "FrontendBookingController@callbackSuccess");
 Route::get("booking/fail", "FrontendBookingController@callbackFail");
 Route::get("booking/cancel", "FrontendBookingController@callbackCancel");
+Route::get("booking/datafeed", "FrontendBookingController@callbackDatafeed");
+Route::post("booking/datafeed", "FrontendBookingController@callbackDatafeed");
 Route::resource("booking", "FrontendBookingController");
 
 
