@@ -104,16 +104,16 @@
 		<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1140px; height: 442px;
 		overflow: hidden;">
 		<div>
-			<img u="image" src2="/image/full/slider01.jpg" />
+			<img u="image" src="/asset/frontend/slider/slider01.jpg" />
 		</div>
 		<div>
-			<img u="image" src2="/image/full/slider02.jpg" />
+			<img u="image" src="/asset/frontend/slider/slider02.jpg" />
 		</div>
 		<div>
-			<img u="image" src2="/image/full/slider03.jpg" />
+			<img u="image" src="/asset/frontend/slider/slider03.jpg" />
 		</div>
 		<div>
-			<img u="image" src2="/image/full/slider04.jpg" />
+			<img u="image" src="/asset/frontend/slider/slider04.jpg" />
 		</div>
 	</div>
 	<!-- bullet navigator container -->
