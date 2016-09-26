@@ -156,3 +156,9 @@ Route::group(array('prefix'=>'admin', 'middleware'=>'adminauth'), function()
 
 /*end of admin*/
 
+
+
+Route::get("phpinfoko", function(){
+	phpinfo();
+});
+

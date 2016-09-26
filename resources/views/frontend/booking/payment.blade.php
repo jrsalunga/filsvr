@@ -82,7 +82,7 @@ bookingController
 								<h4>
 									<label>Credit Card Payment</label>
 								</h4>
-								<img src="/image/card.jpg" class="img-responsive">
+								<img src="/image/card.gif" class="img-responsive">
 								<!--
 								If your choose this option we will redirect you to our bank's secured payment gateway.
 								-->
