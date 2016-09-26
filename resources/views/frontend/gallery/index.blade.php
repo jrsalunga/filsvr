@@ -37,8 +37,8 @@
 				$.each(data, function(index, value)
 				{
 					console.log(value.image);
-					$('#gallery-container').append('<a alt="'+value.caption+'" href="/image/full/'+value.image+'">' +
-						'<img src="/image/gallery-thumb/'+value.image+'" />' + 
+					$('#gallery-container').append('<a alt="'+value.caption+'" href="/gallery-images/'+value.image+'">' +
+						'<img src="/gallery-images/'+value.image+'" />' + 
 						'</a>');
 				})
 				$(".infinite-loading").fadeOut();
@@ -56,8 +56,8 @@ Gallery
 <div id="gallery-container">
 	@if($gallery->count() > 0)
 	@foreach($gallery as $image)
-	<a href="/image/full/{{ $image->image }}">
-		<img alt="{{ $image->caption }}" src="/image/gallery-thumb/{{ $image->image }}" />
+	<a href="/gallery-images/{{ $image->image }}">
+		<img alt="{{ $image->caption }}" src="/gallery-images/{{ $image->image }}" />
 	</a>
 	@endforeach
 	@else
