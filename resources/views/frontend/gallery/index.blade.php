@@ -56,8 +56,8 @@ Gallery
 <div id="gallery-container">
 	@if($gallery->count() > 0)
 	@foreach($gallery as $image)
-	<a href="/gallery-images/{{ $image->image }}">
-		<img alt="{{ $image->caption }}" src="/gallery-images/{{ $image->image }}" />
+	<a href="/image/full/{{ $image->image }}">
+		<img alt="{{ $image->caption }}" src="/image/gallery-thumb/{{ $image->image }}" />
 	</a>
 	@endforeach
 	@else
