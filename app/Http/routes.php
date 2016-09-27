@@ -73,6 +73,7 @@ Route::get("test1", function(){
 
 /*front end routes*/
 Route::get("/", "FrontendController@index");
+Route::get("cancellation-policy", "FrontendController@getTerms");
 Route::resource("rooms", "FrontendRoomsController");
 Route::resource("promos","FrontendPromoController");
 Route::resource("gallery", "FrontendGalleryController");

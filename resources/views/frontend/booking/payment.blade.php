@@ -2,9 +2,7 @@
 @section("controller")
 bookingController
 @endsection	
-@section("scripts")
 
-@endsection
 @section("content")
 <div class="wizard">
 	<ul class="nav nav-wizard">
@@ -74,9 +72,9 @@ bookingController
 						<tr><th colspan="2">Choose your payment option</th></tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr class="tr-btn" style="cursor: pointer;">
 							<td style="border-right: 1px solid #fff;" class="text-right">
-								<input type="radio" name="payment" id="input" value="cc" checked="checked">
+								<input type="radio" name="payment" id="payment" value="cc">
 							</td>
 							<td>
 								<h4>
@@ -93,7 +91,7 @@ bookingController
 				<div class="clearfix">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<input type="hidden" name="id" value="{{$booking->id}}">
-					<button class="btn btn-primary pull-right clearfix">
+					<button class="btn btn-primary pull-right clearfix" id="btn-placed" disabled>
 						<span class="glyphicon glyphicon-ok"></span>
 						Place your booking
 					</button>
@@ -103,7 +101,7 @@ bookingController
 
 			<small>
 				
-				By placing your booking, you agree to Filigans Hotel's term and conditions of use.
+				By placing your booking, you agree to Filigans Hotel's <a target="_blank" href='http://bit.ly/filigans-cancellation-policy'>term and conditions of use.
 				
 			</small>
 
@@ -115,4 +113,25 @@ bookingController
 	</div>
 	
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="/asset/frontend/js/app.js"></script>
+<script type="text/javascript" src="/asset/frontend/js/booking.js"></script>
+  <script type="text/javascript">
+
+  	console.log('before document ready');
+  	$(document).ready(function(){
+
+  		$('#payment').on('click', function(el){
+  			$('#btn-placed').prop('disabled', false);
+  		});
+
+  		$('.tr-btn td').on('click', function(el){
+  			$('#payment').prop('checked', true);
+  			$('#btn-placed').prop('disabled', false);
+  		});
+  	});
+
+  </script>
 @endsection

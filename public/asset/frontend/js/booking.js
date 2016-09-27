@@ -27,7 +27,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 		{
 			angular.extend(data,customer);
 			//angular.extend(data,csrf_t);
-			return $http.post("/booking/",data);
+			return $http.post("/booking",data);
 		},
 		getBookingDetails : function()
 		{
@@ -413,7 +413,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 // jquery side
 
 
-$(".select-customer").select2({
+$(".select-customer").select({
 	minimumInputLength: 2,
 	tags: [],
 	ajax: {

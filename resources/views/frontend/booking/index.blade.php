@@ -3,6 +3,8 @@
 bookingController
 @endsection	
 @section("scripts")
+<script src="/asset/frontend/js/jssor.slider.mini.js"></script>
+<script type="text/javascript" src='/asset/frontend/js/slider.js'></script>
 <script type="text/javascript" src="/asset/frontend/js/app.js"></script>
 <script type="text/javascript" src="/asset/frontend/js/booking.js"></script>
 <script type="text/javascript">
@@ -57,7 +59,7 @@ bookingController
 				<div class="tab-content" >
 					<div class='loader-container'>
 						<center>
-							<img src="img/loader.gif">
+							<img src="/asset/images/loader.gif">
 						</center>
 					</div>
 					<div class='loader-mask'>
@@ -325,20 +327,7 @@ bookingController
 																																						<input type="radio" name="" id="input" value="" checked="checked">
 																																					</label>
 																																				</div>
-																																				<center>
-																																					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-																																						<img src="/image/payment-option/visa.png" class="img-responsive">
-																																					</div>
-																																					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-																																						<img src="/image/payment-option/JCB_Cards.svg.png" class="img-responsive">
-																																					</div>
-																																					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-																																						<img src="/image/payment-option/master.png" class="img-responsive">
-																																					</div>
-																																					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-																																						<img src="/image/payment-option/visa.png" class="img-responsive">
-																																					</div>
-																																				</center>
+																																			
 
 																																			</td>
 																																		</tr>

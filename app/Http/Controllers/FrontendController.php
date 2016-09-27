@@ -48,6 +48,11 @@ class FrontendController extends Controller
         return view("frontend.about.index", compact("about"));
     }
 
+    public function getTerms(){
+        return view('frontend.booking.terms');
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

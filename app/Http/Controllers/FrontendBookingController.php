@@ -21,6 +21,7 @@ use App\WebsiteSetting;
 use App\Customer;
 use Mail;
 use Log;
+use Exception;
 
 class FrontendBookingController extends Controller
 {
@@ -285,9 +286,40 @@ class FrontendBookingController extends Controller
 	}
 
 	public function viewPayment($id) {
-		$booking = Booking::where('id',$id)->where('booking_status', 'pending')->first();
+		$booking = Booking::with('customer')->where('id',$id)->where('booking_status', 'pending')->first();
 		if(!$booking)
 			return abort('404');
+
+		/*
+		$email_data = [];
+		$email_data['name'] = ucfirst($booking->customer->firstname)." ".ucfirst($booking->customer->lastname);
+		$email_data['info'] = '<ul><li>Ref. No.: <strong class="pull-right">'.$booking->booking_no.'</strong></li>';
+		$email_data['info'] .= '<li>Check In: <strong class="pull-right">'.Carbon::parse($booking->checkin)->format('D M d, Y h:i A').'</strong></li>';
+		$email_data['info'] .= '<li>Check Out: <strong class="pull-right">'.Carbon::parse($booking->checkout)->format('D M d, Y h:i A').'</strong></li>';
+		$email_data['info'] .= '<li><em>Room Details:</em></li>';
+		$email_data['info'] .= '<ul>';
+		foreach($booking->rooms as $room) {
+			$email_data['info'] .= '<li>'.$room->roomTypeDetails->name.' - <span class="pull-right">PHP '.number_format($room->room_price,2).'</span></li>';			
+		}
+		$email_data['info'] .= '</ul>';
+		$email_data['info'] .= '<li>Total Amount: <strong class="pull-right">PHP '.number_format($booking->total_price,2).'</strong></li>';
+		$email_data['info'] .= '</ul>';
+
+		//return $email_data['info'];
+
+		try {
+		
+			Mail::send('frontend.booking.email', $email_data, function ($message) use ($booking){
+				$message->from('no-reply@filiganshotel.ph', 'Filigans Hotel Reservation System');
+				$message->to('freakyash_02@yahoo.com');
+				//$message->to($booking->customer->email);
+				//$message->subject("New Booking! (".$booking->booking_no.")");
+				$message->subject("Booking Confirmed! (".$booking->booking_no.")");
+			});
+		} catch(Exception $e) {
+
+		}
+		*/
 
 
 		//return $booking->load('rooms.roomTypeDetails');
@@ -329,14 +361,52 @@ class FrontendBookingController extends Controller
 	public function callbackSuccess(Request $request)
 	{
 		if($request->has('Ref')) {
-			$booking = Booking::where('booking_no', $request->input('Ref'))->first();
-			$booking->booking_status = 'booked';
-			$booking->booking_type = 'online';
-			$booking->payment_status = 'fully paid';
-			$booking->booked_timestamp = Carbon::now();
-			$booking->save();
+			
+			$booking = Booking::where([
+				['booking_no', '=', $request->input('Ref')],
+				['booking_status', '<>', 'booked']
+			])->first();
+			
+			if(is_null($booking)) {
+				return abort('404');
+			} else {
+				$booking->booking_status = 'booked';
+				$booking->booking_type = 'online';
+				$booking->payment_status = 'online fully paid';
+				$booking->updated_at = Carbon::now();
+				$booking->booked_timestamp = Carbon::now();
+				$booking->save();
 
-			return view('frontend.booking.success', compact('booking'));
+				$email_data = [];
+				$email_data['name'] = ucfirst($booking->customer->firstname)." ".ucfirst($booking->customer->lastname);
+				$email_data['info'] = '<ul><li>Ref. No.: <strong class="pull-right">'.$booking->booking_no.'</strong></li>';
+				$email_data['info'] .= '<li>Check In: <strong class="pull-right">'.Carbon::parse($booking->checkin)->format('D M d, Y h:i A').'</strong></li>';
+				$email_data['info'] .= '<li>Check Out: <strong class="pull-right">'.Carbon::parse($booking->checkout)->format('D M d, Y h:i A').'</strong></li>';
+				$email_data['info'] .= '<li><em>Room Details:</em></li>';
+				$email_data['info'] .= '<ul>';
+				foreach($booking->rooms as $room) {
+					$email_data['info'] .= '<li>'.$room->roomTypeDetails->name.' - <span class="pull-right">PHP '.number_format($room->room_price,2).'</span></li>';			
+				}
+				$email_data['info'] .= '</ul>';
+				$email_data['info'] .= '<li>Total Amount: <strong class="pull-right">PHP '.number_format($booking->total_price,2).'</strong></li>';
+				$email_data['info'] .= '</ul>';
+
+				try {
+				
+					Mail::send('frontend.booking.email', $email_data, function ($message) use ($booking){
+						$message->from('no-reply@filiganshotel.ph', 'Filigans Hotel Reservation System');
+						$message->to('freakyash_02@yahoo.com');
+						$message->to($booking->customer->email);
+						//$message->subject("New Booking! (".$booking->booking_no.")");
+						$message->subject("Booking Confirmed! (".$booking->booking_no.")");
+					});
+				} catch(Exception $e) {
+
+				}
+				
+
+				return view('frontend.booking.success', compact('booking'));
+			}
 		}
 		return abort('404');
 	}
@@ -345,8 +415,9 @@ class FrontendBookingController extends Controller
 		if($request->has('Ref')) {
 			$booking = Booking::where('booking_no', $request->input('Ref'))->first();
 			$booking->booking_status = 'cancelled';
-			$booking->payment_status = 'cancelled';
-			$booking->booked_timestamp = Carbon::now();
+			$booking->booking_type = 'online';
+			$booking->payment_status = 'failed';
+			$booking->updated_at = Carbon::now();
 			$booking->save();
 
 			return view('frontend.booking.fail', compact('booking'));
@@ -358,13 +429,23 @@ class FrontendBookingController extends Controller
 	public function callbackCancel(Request $request) {
 
 		if($request->has('Ref')) {
-			$booking = Booking::where('booking_no', $request->input('Ref'))->first();
-			$booking->booking_status = 'cancelled';
-			$booking->payment_status = 'cancelled';
-			$booking->booked_timestamp = Carbon::now();
-			$booking->save();
+			
+			$booking = Booking::where([
+				['booking_no', '=' ,$request->input('Ref')],
+				['booking_status', '<>' ,'cancelled'],
+			])->first();
 
-			return view('frontend.booking.cancel', compact('booking'));
+			if(is_null($booking)) {
+				return abort('404');
+			} else {
+				$booking->booking_status = 'cancelled';
+				$booking->booking_type = 'online';
+				$booking->payment_status = 'cancelled';
+				$booking->updated_at = Carbon::now();
+				$booking->save();
+				
+				return view('frontend.booking.cancel', compact('booking'));
+			}
 		}
 		return abort('404');
 	}
