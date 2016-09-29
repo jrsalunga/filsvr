@@ -461,7 +461,6 @@ class FrontendBookingController extends Controller
 
 		Log::info('callback run via '.$request->method().' method');
 
-
 		$email_data = [
 			'name' => 'jeff',
 			'info' => 'Datafeed'
@@ -470,7 +469,6 @@ class FrontendBookingController extends Controller
 		Mail::send('frontend.booking.email', $email_data, function ($message) use ($booking){
 			$message->from('no-reply@filiganshotel.ph', 'Datafeed');
 			$message->to('freakyash_02@yahoo.com');
-			//$message->subject("New Booking! (".$booking->booking_no.")");
 			$message->subject('Datafeed recieved');
 		});
 		
