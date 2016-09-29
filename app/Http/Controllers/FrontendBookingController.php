@@ -463,7 +463,7 @@ class FrontendBookingController extends Controller
 
 
 		$email_data = [
-			'name' => 'jeff';
+			'name' => 'jeff',
 			'info' => 'Datafeed'
 		];
 		
