@@ -1,6 +1,6 @@
 @extends("frontend.layout.master")
 @section("headerTitle")
-ABOUT
+About Us
 @endsection
 @section("content")
 {!! $about !!}

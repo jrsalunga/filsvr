@@ -46,29 +46,6 @@ Route::get("redirect", function()
 	}
 });
 
-Route::get("test", function()
-{
-
-	$email_data = array();
-	$email_data['name'] = "Tan";
-	$email_data['reference_number'] = "234243";
-					//return $email_data;
-	Mail::send('frontend.booking.email', $email_data, function ($message) {
-		$message->from('test@filigans.com', 'Admin Filigans');
-		$message->to('tan_0300@yahoo.com');
-		$message->subject("Filigans Hotel Reservation");
-	});
-
-
-});
-
-Route::get("test1", function(){
-	$booking = \App\Booking::all();
-	foreach($booking as $key=>$b){
-		$b->booking_type ="online";
-		$b->save();
-	}
-});
 /*end of test routes*/
 
 /*front end routes*/
@@ -162,4 +139,30 @@ Route::group(array('prefix'=>'admin', 'middleware'=>'adminauth'), function()
 Route::get("phpinfoko", function(){
 	phpinfo();
 });
+
+/*
+Route::get("test", function()
+{
+
+	$email_data = array();
+	$email_data['name'] = "Tan";
+	$email_data['reference_number'] = "234243";
+					//return $email_data;
+	Mail::send('frontend.booking.email', $email_data, function ($message) {
+		$message->from('test@filigans.com', 'Admin Filigans');
+		$message->to('tan_0300@yahoo.com');
+		$message->subject("Filigans Hotel Reservation");
+	});
+
+
+});
+
+Route::get("test1", function(){
+	$booking = \App\Booking::all();
+	foreach($booking as $key=>$b){
+		$b->booking_type ="online";
+		$b->save();
+	}
+});
+*/
 

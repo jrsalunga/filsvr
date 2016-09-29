@@ -147,8 +147,8 @@ class FrontendBookingController extends Controller
 		}
 	}
 
-	//public function store(FrontendCreateBookingRequest $request)
-	public function store(Request $request)
+	public function store(FrontendCreateBookingRequest $request)
+	//public function store(Request $request)
 	{
 		$input = $request->all();
 		$session = $this->getDbSession($request);
@@ -336,6 +336,10 @@ class FrontendBookingController extends Controller
 		if(!$booking)
 			return abort('404');
 
+		$booking->payment_status = 'redirected';
+		$booking->updated_at = Carbon::now();
+		$booking->save();
+
 		if(app()->environment()=='production') {
 			$mid = env('BDO_MID');
 			$url = env('BDO_URL');
@@ -456,6 +460,19 @@ class FrontendBookingController extends Controller
 		echo 'OK';
 
 		Log::info('callback run via '.$request->method().' method');
+
+
+		$email_data = [
+			'name' => 'jeff';
+			'info' => 'Datafeed'
+		];
+		
+		Mail::send('frontend.booking.email', $email_data, function ($message) use ($booking){
+			$message->from('no-reply@filiganshotel.ph', 'Datafeed');
+			$message->to('freakyash_02@yahoo.com');
+			//$message->subject("New Booking! (".$booking->booking_no.")");
+			$message->subject('Datafeed recieved');
+		});
 		
 	}
 
