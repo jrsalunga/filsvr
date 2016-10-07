@@ -182,7 +182,7 @@
 				</p>
 					<h3> {{ $rt->name }} </h3>
 				<p>
-					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> {{ $rt->beds }} Bed Room(s)
+					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> {{ $rt->beds }} Bed(s)
 				</p>
 				<p>
 					<span class="glyphicon glyphicon-glyphicon glyphicon-check" aria-hidden="true"></span> Maximum of {{ $rt->capacity }} people
