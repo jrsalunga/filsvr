@@ -349,6 +349,7 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 
 	$scope.checkAvailability = function(input, moveNextTab, removeBookingDetails)
 	{
+		console.log('start checkAvailability');
 		$scope.availablerooms = [];
 		if(!isValid(input.checkOutDate) && !isValid(input.checkInDate))
 		{
@@ -356,6 +357,8 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 
 			bookingFactory.changeDate(input.checkInDate, input.checkOutDate, input.noOfAdult, input.noOfChildren, removeBookingDetails).success(function(data)
 			{
+				console.log('fetch');
+				console.log(data);
 				var misc_data = 
 				{
 					id : 0,
@@ -363,10 +366,12 @@ app.factory("bookingFactory", ["$http","csrf", function($http, csrf){
 					rooms : []
 				}
 				
+				console.log('$scope.availableroomtype');
 				$scope.availableroomtype = angular.copy(data);
 				angular.forEach(data, function(value, key)
 				{
-					if(value.rooms.length >0)
+					//if(value.rooms.length >0)
+					if(Object.keys(value.rooms).length > 0)
 					{
 						angular.forEach(value.rooms, function(value1, key1)
 						{

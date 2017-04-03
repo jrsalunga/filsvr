@@ -2,6 +2,7 @@
 @section("controller")
 bookingController
 @endsection	
+@section('title', 'Cancellation Policy')
 @section("scripts")
 
 @endsection

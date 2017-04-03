@@ -27,9 +27,15 @@ bookingController
 </div>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-4 col-md-push-8">
-		<div style="background-color: #fff; padding: 5px;">
+		<div style="padding: 5px;" class="bg-success">
 			<div>
 				Booking Summary
+			</div>
+			<div>
+				<small>Booking No.:</small> 
+			<span class="pull-right">
+				<strong>{{ $booking->booking_no }}</strong>
+			</span>
 			</div>
 			<div>
 				<small>Check In:</small> 
@@ -55,15 +61,44 @@ bookingController
 				@endforeach
 			</div>
 			<div>
-				<small>Total Amount:</small> 
+				<small>Total Amount Due:</small> 
 				<span class="pull-right">
-					PHP {{ number_format($booking->total_price,2) }}
+					<strong>PHP {{ number_format($booking->total_price,2) }}</strong>
 				</span>
 			</div>
+			@if($booking->total_discount>0)
+			<div>
+				<small>Discount:</small> 
+				<span class="pull-right">
+					-{{ number_format($booking->total_discount,2) }}
+				</span>
+			</div>
+			@endif
+			<div>
+				<small>Amount Charged:</small> 
+				<span class="pull-right">
+					<strong>PHP {{ number_format($booking->amount_paid,2) }}</strong>
+				</span>
+			</div>
+			@if($booking->additional_remarks)
+			<div>
+				<small>Remarks:
+				<span class="pull-right">
+					{{ $booking->additional_remarks }}
+				</span>
+				</small> 
+			</div>
+			@endif
 		</div>
+		<span>
+			<a href="https://bdo.com.ph" style="text-decoration: none;" target="_blank">
+				<img class="img-responsive" src="/image/title_logo_ecn.jpg" style="display: inline-block;">
+			</a>
+		</span>
 		<span id="siteseal">
 			<script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=F3lMRvKHBss9ETwg1Yhab0EH8QQRF7IPPuj5THMmsoBPeSYiLE95tYByngMe"></script>
 		</span>
+		
 			
 	</div>
 	<div class="col-md-8 col-md-pull-4">

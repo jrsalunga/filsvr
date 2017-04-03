@@ -1,4 +1,5 @@
 @extends("frontend.layout.master")
+@section('title', 'Payment Options')
 @section("controller")
 bookingController
 @endsection	
@@ -53,20 +54,41 @@ bookingController
 				@endforeach
 			</div>
 			<div>
-				<small>Total Amount:</small> 
+				<small>Total Amount Due:</small> 
 				<span class="pull-right">
 					PHP {{ number_format($booking->total_price,2) }}
 				</span>
 			</div>
 		</div>
+		<span>
+			<a href="https://bdo.com.ph" style="text-decoration: none;" target="_blank">
+				<img class="img-responsive" src="/image/title_logo_ecn.jpg" style="display: inline-block;">
+			</a>
+		</span>
 		<span id="siteseal">
 			<script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=F3lMRvKHBss9ETwg1Yhab0EH8QQRF7IPPuj5THMmsoBPeSYiLE95tYByngMe"></script>
 		</span>
 			
+			
 	</div>
 	<div class="col-md-8 col-md-pull-4">
-		<form action="/booking/{{$booking->id}}/payment" method="POST">
+		<form action="/booking/{{$booking->id}}/payment" method="POST" id="cardForm">
 			<div style="background-color: #fff; padding: 5px;">
+
+				@if (count($errors) > 0)
+				    <div class="alert alert-danger alert-errors" role="alert">
+				      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				      <span aria-hidden="true">&times;</span>
+				    </button>
+				      <ul>
+				      @foreach($errors->all() as $message) 
+				        <li>{{ $message }}</li>
+				      @endforeach
+				    </ul>
+				    
+				    </div>
+				 
+				@endif
 				<table class="payment-table table table-bordered table-hover">
 					<thead>
 						<tr><th colspan="2">Choose your payment option</th></tr>
@@ -80,12 +102,85 @@ bookingController
 								<h4>
 									<label>Credit Card Payment</label>
 								</h4>
-								<img src="/image/card.gif" class="img-responsive">
+								<img src="/image/card.gif" class="img-responsive img-cc">
+								
 								<!--
 								If your choose this option we will redirect you to our bank's secured payment gateway.
 								-->
+								<div style="margin-top: 20px; cursor: default;">
+									<div class="collapse" id="collapseCard">
+										<div class="row">
+											<div class="col-md-12">
+												<span class="card-img pull-left"></span>
+											</div>
+										</div>
+									  <div class="row">
+									    <div class="col-md-6 col-sm-7">
+												<div class="form-group">
+											    <label for="ccn">Card Number:</label>
+											    <input type="text" class="form-control" id="ccn" name="ccn" placeholder="Credit Card Number" maxlength="19" required>
+											  </div>
+									    </div>
+									    <div class="col-md-3 col-md-push-1 col-sm-5">
+												<div class="form-group">
+													<label for="expiry">Expiration:</label>
+											    <input  class="form-control" type="text" name="expiry" id="expiry" placeholder="MM/YYYY" required>
+											  </div>
+									    </div>
+									  </div><!-- end: .row -->
+									  <div class="row">
+									    <div class="col-md-8">
+												<div class="form-group">
+											    <label for="cardname">Name on card:</label>
+											    <input type="text" class="form-control" id="cardname" name="cardname" placeholder="Name on card" maxlength="50" required>
+											  </div>
+									    </div>
+									  </div><!-- end: .row -->
+									  <div class="row">
+									    <div class="col-md-3 col-sm-4">
+												<div class="form-group">
+											    <label for="cvc">Security Code:</label>
+											    <input type="text" class="form-control" id="cvc" name="cvc" placeholder="CVC" maxlength="4" required>
+											    <!--
+											    <label for="ccm">Expiration Month:</label>
+											    <select class="form-control" id="ccm" required>
+											    	<option disabled selected value="">Select a month</option>
+											    	<option value="01">01 - January	</option>
+											    	<option value="02">02 - February	</option>
+											    	<option value="03">03 - March	</option>
+											    	<option value="04">04 - April	</option>
+											    	<option value="05">05 - May	</option>
+											    	<option value="06">06 - June	</option>
+											    	<option value="07">07 - July	</option>
+											    	<option value="08">08 - August	</option>
+											    	<option value="09">09 - September	</option>
+											    	<option value="10">10 - October	</option>
+											    	<option value="11">11 - November	</option>
+											    	<option value="12">12 - December	</option>
+											    </select>
+											    -->
+											  </div>
+									    </div>
+									    <div class="col-md-3 ">
+									    <!--
+												<div class="form-group">
+											    <label for="ccy">Expiration Year:</label>
+											    <select class="form-control" id="ccy" required>
+											    	<option disabled selected value="">Select a year</option>
+											    	<?php 
+											    		foreach (range(date('Y', strtotime('now')), 2040) as $value) 
+											    			echo '<option value="'.$value.'">'.$value.'</option>';
+											    	?>
+											    </select>
+											  </div>
+											-->
+									    </div>
+									  </div><!-- end: .row -->
+									</div>
+								</div>
 							</td>
 						</tr>
+						
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -118,9 +213,41 @@ bookingController
 @section('scripts')
 <script type="text/javascript" src="/asset/frontend/js/app.js"></script>
 <script type="text/javascript" src="/asset/frontend/js/booking.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/card/2.2.1/card.min.js"></script>
   <script type="text/javascript">
 
-  	console.log('before document ready');
+  	var setExpiry = function setExpiry() {
+  		$('#expiry').val($('#ccm').val()+'/'+$('#ccy').val()).trigger('blur');
+  		console.log($('#expiry').val());
+  	}
+
+  	var card = new Card({
+	    form: '#cardForm', // *required*
+	    container: '.card-img', // *required*
+	    formSelectors: {
+	      numberInput: 'input#ccn', // optional — default input[name="number"]
+	      expiryInput: 'input#expiry', // optional — default input[name="expiry"]
+	      cvcInput: 'input#cvc', // optional — default input[name="cvc"]
+	      nameInput: 'input#cardname' // optional - defaults input[name="name"]
+	    },
+	    width: 200, // optional — default 350px
+	    formatting: true, // optional - default true
+	    messages: {
+        validDate: 'valid\ndate', // optional - default 'valid\nthru'
+	      monthYear: 'mm/yyyy', // optional - default 'month/year'
+	    },
+	    placeholders: {
+        number: '•••• •••• •••• ••••',
+        name: 'Full Name',
+        expiry: '••/••',
+        cvc: '•••'
+	    },
+	    masks: {
+	      cardNumber: '•' // optional - mask card number
+	    },
+	    debug: true // optional - default false
+		});
+  	
   	$(document).ready(function(){
 
   		$('#payment').on('click', function(el){
@@ -130,7 +257,26 @@ bookingController
   		$('.tr-btn td').on('click', function(el){
   			$('#payment').prop('checked', true);
   			$('#btn-placed').prop('disabled', false);
+  			$('#collapseCard').collapse('show');
+  			$('.img-cc').hide();
+  			$('.alert-errors').remove();
+
   		});
+
+
+  		$('#ccm').on('change', function(e) {
+  			console.log('ccm')
+  			setExpiry();
+  		})
+
+  		$('#ccy').on('change', function(e) {
+  			console.log('ccy')
+  			setExpiry();
+  		})
+
+  		
+
+  		
   	});
 
   </script>

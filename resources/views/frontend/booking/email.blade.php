@@ -1,9 +1,5 @@
 <style type="text/css">
-	/***
-User Profile Sidebar by @keenthemes
-A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
-Licensed under MIT
-***/
+
 
 body {
     padding: 0;

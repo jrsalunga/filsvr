@@ -1,9 +1,5 @@
 <style type="text/css">
-	/***
-User Profile Sidebar by @keenthemes
-A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
-Licensed under MIT
-***/
+
 
 body {
     padding: 0;
@@ -73,7 +69,7 @@ html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
 				<div style="line-height: 44px;">
 					<font face="Arial, Helvetica, sans-serif" size="5" color="#57697e" style="font-size: 34px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #57697e;">
-						{{ $reference_number }}
+						{{ $refno }}
 					</span></font>
 				</div>
 				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
@@ -84,19 +80,21 @@ html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
 					<font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
 					 <p style="text-align:left">
-					 	Hi {{ $name }},
+					 	Hi Admin,
 					 </p>
 					 <p>
 						
-					At the above is the booking reference number that you will use upon entering the Hotel.
+					{{ $name }} just fill up the form!
 					</p>
-					Thank you for choosing Filigans Hotel.</span></font>
+					
+					{!! $info !!}
+
 				</div>
 				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
 			</td></tr>
 			<tr><td align="center">
 				<div style="line-height: 24px;">
-					<a href="{{ url("booking/$reference_number/registration") }}" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
+					<a href="{{ url("booking/$refno/registration") }}" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
 						<font face="Arial, Helvetica, sans-seri; font-size: 13px;" size="3" color="#596167">
 							</font>Download/Print Booking Details</a>
 				</div>

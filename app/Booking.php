@@ -19,6 +19,7 @@ class Booking extends Model
 	'credits',	
 	'flight_details',
 	'payment_mode',
+	'total_discount',
 	'payment_status'];
 
 	protected $appends = [
@@ -30,6 +31,12 @@ class Booking extends Model
 	public function rooms()
 	{
 		return $this->hasMany("App\BookedRoom", "booking_id", "id");
+	}
+
+
+	public function card()
+	{
+		return $this->hasOne("App\Card");
 	}
 
 	public function additionalTransaction()
