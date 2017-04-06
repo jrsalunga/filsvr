@@ -8,6 +8,7 @@
 	<title>Filigans Hotel Palawan | Book affordable rooms at Puerto Princesa City</title>
 
 	<meta name="description" Content="Filigans Hotel Palawan in Puerto Princesa City, Philippines. Book now and avail our discounted price for BDO Credit Card Holders"/>
+	<meta name="google-site-verification" content="hYXsil_eDi2e4wGkRDlIiOXMdp6nuBIBThzElBF1MIk" />
 	<!-- Bootstrap CSS -->
 	<link rel="shortcut icon" type="image/x-icon" href="/image/favicon-icon.png" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
