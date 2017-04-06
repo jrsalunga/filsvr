@@ -1,4 +1,7 @@
 @extends("frontend.layout.master")
+@section("title")
+Gallery
+@endsection
 @section("styles")
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.1/css/justifiedGallery.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/css/swipebox.min.css">

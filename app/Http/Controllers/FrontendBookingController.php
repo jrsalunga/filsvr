@@ -673,7 +673,7 @@ class FrontendBookingController extends Controller
 					$email_data['info'] .= '</ul>';
 					$email_data['info'] .= '<li>Total Amount Due: <strong class="pull-right">PHP '.number_format($booking->total_price,2).'</strong></li>';
 					if ($booking->total_discount>0)
-						$email_data['info'] .= '<li>Discount: <strong class="pull-right">PHP '.number_format($booking->total_discount,2).'</strong></li>';
+						$email_data['info'] .= '<li>Discount: <strong class="pull-right">PHP -'.number_format($booking->total_discount,2).'</strong></li>';
 					$email_data['info'] .= '<li>Amount Charged: <strong class="pull-right">PHP '.number_format($booking->amount_paid,2).'</strong></li>';
 					$email_data['info'] .= '<li>Card Ending: <strong class="pull-right">xxxx '.substr($booking->card->no, -4).'</strong></li>';
 					if ($booking->additional_remarks)

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://filiganshotel.ph/</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/booking</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/rooms</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/gallery</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/about</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/contact</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/rooms/standard-rooms</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/rooms/superior-rooms</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://filiganshotel.ph/cancellation-policy</loc>
+  <changefreq>always</changefreq>
+</url>
+</urlset>

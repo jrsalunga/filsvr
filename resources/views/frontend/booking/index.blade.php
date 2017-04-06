@@ -1,4 +1,5 @@
 @extends("frontend.layout.master")
+@section('title', 'Book affordable rooms at Puerto Princesa City')
 @section("controller")
 bookingController
 @endsection	

@@ -1,6 +1,6 @@
 @extends("frontend.layout.master")
 @section("title")
-Filigans Hotel | Contact US
+Contact Us
 @endsection
 @section("headerTitle")
 Contact

@@ -1,4 +1,7 @@
 @extends("frontend.layout.master")
+@section("title")
+Room Details
+@endsection
 @section("headerTitle")
 Room Details
 @endsection
