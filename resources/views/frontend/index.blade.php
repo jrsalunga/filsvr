@@ -7,7 +7,7 @@
 	
 	<title>Filigans Hotel Palawan | Book affordable rooms at Puerto Princesa City</title>
 
-	<meta name="description" Content="Filigans Hotel Palawan in Puerto Princesa City, Philippines. Book now and avail our discounted price for BDO Credit Card Holders.  Filigans Hotel features a restaurant, bar and free WiFi. Free shuttle service to airport is available."/>
+	<meta name="description" Content="Filigans Hotel Palawan in Puerto Princesa City, Philippines. Book now and avail our discounted price for BDO Credit Card Holders.  Filigans Hotel features a restaurant, bar and free WiFi. Free shuttle service to airport is available	."/>
 	<meta name="google-site-verification" content="hYXsil_eDi2e4wGkRDlIiOXMdp6nuBIBThzElBF1MIk" />
 	<!-- Bootstrap CSS -->
 	<link rel="shortcut icon" type="image/x-icon" href="/image/favicon-icon.png" />
@@ -106,6 +106,24 @@
 		<!-- Slides Container -->
 		<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1140px; height: 442px;
 		overflow: hidden;">
+		<div>
+			<img u="image" src="/asset/frontend/slider/tour1.jpg" />
+		</div>
+		<div>
+			<img u="image" src="/asset/frontend/slider/tour2.jpg" />
+		</div>
+		<div>
+			<img u="image" src="/asset/frontend/slider/tour3.jpg" />
+		</div>
+		<div>
+			<img u="image" src="/asset/frontend/slider/tour4.jpg" />
+		</div>
+		<div>
+			<img u="image" src="/asset/frontend/slider/tour5.jpg" />
+		</div>
+		<div>
+			<img u="image" src="/asset/frontend/slider/tour6.jpg" />
+		</div>
 		<div>
 			<img u="image" src="/asset/frontend/slider/slider01.jpg" />
 		</div>
