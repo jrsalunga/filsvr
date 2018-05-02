@@ -167,7 +167,7 @@
 				</td>
 				<td>
 					<select name="max_children" id="input" class="form-control" required="required">
-						@for($i=1;$i<10;$i++)
+						@for($i=0;$i<10;$i++)
 						<option value="{{ $i }}" @if($i == $selectedroomtype->max_children) selected @endif>{{ $i }}</option>
 						@endfor
 					</select>
