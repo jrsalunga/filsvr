@@ -71,9 +71,15 @@ bookingController
 
 
 				<div class="text-center">
+					<p>&nbsp;</p>
+					<p>Booking Ref #: </p>
+					<h4>{{ request()->input('Ref') }}</h4>
 					<h1 class="text-danger"><span class="glyphicon glyphicon-info-sign" style="font-size:2.5em;"></span></h1>
-					<h2>Your booking is cancelled!</h2>
-					<p>Something went wrong while processing your payment.</p>
+					<h3>Something went wrong while processing your payment.</h3>
+					<p>Your booking has been cancelled!</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>For further assitance you can <a href="/contact">contact us.</a></p>
 				</div>
 				
 				<div class="clearfix">

@@ -151,8 +151,8 @@ class FrontendBookingController extends Controller
 		}
 	}
 
-	public function store(FrontendCreateBookingRequest $request)
 	//public function store(Request $request)
+	public function store(FrontendCreateBookingRequest $request)
 	{
 		$input = $request->all();
 		$session = $this->getDbSession($request);
@@ -328,18 +328,7 @@ class FrontendBookingController extends Controller
 
 
 
-	public function viewPayment($id) {
-		$booking = Booking::with('customer')->where('id',$id)->where('booking_status', 'pending')->first();
-		
-		if(!$booking)
-			return abort('404');
-
-		#if (app()->environment()==='production') 
-			$this->notifyAdmin($booking);
-
-		//return $booking->load('rooms.roomTypeDetails');
-		return view('frontend.booking.payment', compact('booking'));
-	}
+	
 
 
 
@@ -431,11 +420,70 @@ class FrontendBookingController extends Controller
 		return Bin::where('code', substr($card, 0, 6))->first();
 	}
 
+	public function viewPayment($id) {
+		$booking = Booking::with('customer')->where('id',$id)->where('booking_status', 'pending')->first();
+		
+		if(!$booking)
+			return abort('404');
+
+		if (app()->environment()==='production') 
+			$this->notifyAdmin($booking);
+
+		//return $booking->load('rooms.roomTypeDetails');
+		//return dd(request()->input('method'));
+		if (request()->has('method') && request()->input('method')=='direct')
+			return view('frontend.booking.payment', compact('booking'));
+		return view('frontend.booking.payment-cptb', compact('booking'));
+	}
+
 
 	public function postPayment(Request $request, $id) {
 
-		//return $request->all();
-		
+		if ($request->has('method') && $request->input('method')=='direct')
+			return $this->direct($request, $id);
+		return $this->cptb($request, $id);
+
+	}
+
+	private function cptb(Request $request, $id) {
+		if($id!=$request->input('id'))
+			return abort('404');
+
+		$booking = Booking::with(['rooms'])->where('id',$id)->where('booking_status', 'pending')->first();
+
+		if(!$booking)
+			return abort('404');
+		//return $booking;
+		$booking->payment_status = 'redirected';
+		$booking->updated_at = Carbon::now();
+		$booking->save();
+
+		if(app()->environment()=='production') {
+			$mid = env('BDO_MID');
+			$url = env('BDO_URL');
+			//$url = (env('BDO_CONN')=='direct') ? env('BDO_DIRECT_URL') : env('BDO_URL');
+		} else {
+			$mid = env('BDO_MID_TEST');
+			$url = env('BDO_URL_TEST');
+			//$url = (env('BDO_CONN')=='direct') ? env('BDO_DIRECT_URL_TEST') : env('BDO_URL_TEST');
+		}
+
+		$url .= '?merchantId='.$mid.'&';
+		$url .= 'amount='.$booking->total_price.'&';
+		$url .= 'orderRef='.$booking->booking_no.'&';
+		$url .= 'currCode=608&';
+		$url .= 'lang=E&';
+		$url .= 'payType=N&';
+		$url .= 'successUrl='.env('BDO_URL_SUCCESS').'&';
+		$url .= 'failUrl='.env('BDO_URL_FAIL').'&';
+		$url .= 'cancelUrl='.env('BDO_URL_CANCEL');
+		//return $url;
+		return redirect($url);
+
+	}
+
+	private function direct(Request $request, $id) {
+
 		if($id!=$request->input('id'))
 			return abort('404');
 

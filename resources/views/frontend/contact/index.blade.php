@@ -37,6 +37,12 @@ Contact
 					<a href="mailto:{{ $settings->email }}">{{ $settings->email }}</a>
 				</td>
 			</tr>
+			<tr>
+				<td>Facebook Messenger:</td>
+				<td>
+					<a href="https://goo.gl/mzCxZa">@FiligansHotel</a>
+				</td>
+			</tr>
 
 		</table>
 	</div>
